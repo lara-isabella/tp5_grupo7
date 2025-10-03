@@ -9,9 +9,15 @@ public class CollectionProducto {
     //Colección estática de productos (Map: código -> producto)
     public static Map<Integer, Producto> productos = new HashMap<>();
 
-    //Guardar un producto en la colección
-    public static void guardarProducto(Producto producto) {
+    // Guardar un producto en la colección.
+    // Devuelve true si se agregó correctamente, false si el código ya existe.
+    // Esto evita duplicar productos con el mismo código.
+    public static boolean guardarProducto(Producto producto) {
+        if (productos.containsKey(producto.getCodigoProducto())) {
+            return false;
+        }
         productos.put(producto.getCodigoProducto(), producto);
+        return true;
     }
 
     //Buscar un producto por código
@@ -44,10 +50,10 @@ public class CollectionProducto {
     //Precargar productos distintos de ejemplo
     public static void precargarProductos() {
         productos.put(2001, new Producto(2001, "Leche La Serenísima 1L", 500.0, 0, 2500));
-        productos.put(2002, new Producto(2002, "Pan Integral Bimbo 500gr", 450.0, 10, 1800));
-        productos.put(2003, new Producto(2003, "Queso Cremoso Sancor 1kg", 3200.0, 15, 1200));
+    productos.put(2002, new Producto(2002, "Pan Integral Bimbo 500gr", 450.0, 25, 1800));
+    productos.put(2003, new Producto(2003, "Queso Cremoso Sancor 1kg", 3200.0, 30, 1200));
         productos.put(2004, new Producto(2004, "Jugo Cepita Naranja 1L", 600.0, 0, 2000));
-        productos.put(2005, new Producto(2005, "Mermelada Arcor Frutilla 500gr", 750.0, 20, 1500));
+    productos.put(2005, new Producto(2005, "Mermelada Arcor Frutilla 500gr", 750.0, 25, 1500));
         productos.put(2006, new Producto(2006, "Galletitas Oreo 300gr", 850.0, 0, 3000));
         productos.put(2007, new Producto(2007, "Aceite Cocinero 1L", 2100.0, 25, 1000));
         productos.put(2008, new Producto(2008, "Yerba Rosamonte 1kg", 1800.0, 0, 2200));

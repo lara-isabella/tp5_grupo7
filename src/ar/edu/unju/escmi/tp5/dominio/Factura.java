@@ -23,16 +23,42 @@ public class Factura {
     }
 
     public double calcularTotal() {
-        return lineas.stream().mapToDouble(LineaFactura::calcularImporte).sum();
+        double subtotal = 0;
+        // Recorremos las líneas y calculamos el subtotal aplicando:
+        // - Primero: descuento propio del producto (Producto.getPrecioConDescuento())
+        // - Segundo: si el cliente es mayor, el precio por unidad se reduce a la mitad
+        for (LineaFactura l : lineas) {
+            double unitPrice = l.getProducto().getPrecioConDescuento();
+            if (cliente instanceof ClienteMayor) {
+                // Para compras por mayor, el precio por unidad es la mitad
+                unitPrice = unitPrice / 2.0;
+            }
+            subtotal += l.getCantidad() * unitPrice;
+        }
+
+        // Finalmente: si el cliente es menor y tiene obra social PAMI (y DNI válido),
+        // se aplica un 10% de descuento sobre el subtotal.
+        if (cliente instanceof ClienteMenor) {
+            ClienteMenor cm = (ClienteMenor) cliente;
+            if (cm.getObraSocial() != null && cm.getObraSocial().equalsIgnoreCase("PAMI") && cliente.getDni() > 0) {
+                return subtotal * 0.90; // 10% de descuento
+            }
+        }
+        return subtotal;
     }
 
     public void mostrarFactura() {
         System.out.println("Factura Nº " + numero + " - Fecha: " + fecha);
-        System.out.println("Cliente: " + cliente.getNombre());
+        // Mostrar datos del cliente (apellido, nombre, dirección si disponibles)
+        System.out.println("Cliente: " + cliente.getNombre() + " " + (cliente.getApellido() != null ? cliente.getApellido() : ""));
+        System.out.println("Dirección: " + (cliente.getDireccion() != null ? cliente.getDireccion() : ""));
         System.out.println("Detalle:");
         for (LineaFactura l : lineas) {
-            System.out.println("- " + l.getProducto().getDescripcion() + " x" + l.getCantidad() +
-                               " = $" + l.calcularImporte());
+            double unitPrice = l.getProducto().getPrecioConDescuento();
+            if (cliente instanceof ClienteMayor) {
+                unitPrice = unitPrice / 2.0;
+            }
+            System.out.println("- " + l.getProducto().getDescripcion() + " | Cant: " + l.getCantidad() + " | Unit: $" + unitPrice + " | Importe: $" + (l.getCantidad() * unitPrice));
         }
         System.out.println("TOTAL: $" + calcularTotal());
     }

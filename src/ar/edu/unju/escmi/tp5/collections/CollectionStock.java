@@ -7,14 +7,20 @@ import ar.edu.unju.escmi.tp5.dominio.Producto;
 public class CollectionStock {
     public static Map<Producto, Integer> stock = new HashMap<>();
 
+    // Agrega un producto al control de stock y sincroniza el campo stock
+    // del objeto Producto para mantener una referencia rápida en el objeto.
     public static void agregarProducto(Producto producto, int cantidad) {
         stock.put(producto, cantidad);
+        // Mantener sincronizado el stock en el objeto Producto
+        producto.setStock(cantidad);
     }
 
     public static void actualizarStock(Producto producto, int cantidadVendida) {
         if (stock.containsKey(producto)) {
             int actual = stock.get(producto);
-            stock.put(producto, actual - cantidadVendida);
+            int nuevo = actual - cantidadVendida;
+            stock.put(producto, nuevo);
+            producto.setStock(nuevo);
         }
     }
 

@@ -20,7 +20,7 @@ public class ClienteMenor extends Cliente {
     }
 
     public double aplicarDescuento(double total) {
-        return total * 0.95; // 5% de descuento
+        return total * 0.90; // 10% de descuento (si corresponde se aplica desde Factura)
     }
 
     public void mostrarDatos() {

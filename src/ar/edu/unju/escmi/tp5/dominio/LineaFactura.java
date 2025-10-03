@@ -10,7 +10,9 @@ public class LineaFactura {
     }
 
     public double calcularImporte() {
-        return cantidad * producto.getPrecioUnitario();
+        // Calcula el importe de la línea usando el precio unitario
+        // ya reducido por cualquier descuento del producto.
+        return cantidad * producto.getPrecioConDescuento();
     }
 
     public Producto getProducto() { return producto; }
