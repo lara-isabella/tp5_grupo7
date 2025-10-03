@@ -3,6 +3,10 @@ package ar.edu.unju.escmi.tp5.dominio;
 public class ClienteMayor extends Cliente {
     private int codigoCliente;
 
+    public ClienteMayor() {
+        
+    }
+
     public ClienteMayor(String nombre, String apellido, String direccion, int dni, int codigoCliente) {
         super(nombre, apellido, direccion, dni);
         this.codigoCliente = codigoCliente;
