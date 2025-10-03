@@ -23,16 +23,36 @@ public class Factura {
     }
 
     public double calcularTotal() {
-        return lineas.stream().mapToDouble(LineaFactura::calcularImporte).sum();
+        double subtotal = 0;
+        // Recorremos las líneas y calculamos el subtotal aplicando:
+        // - Primero: descuento propio del producto (Producto.getPrecioConDescuento())
+        // - Segundo: si el cliente es mayor, el precio por unidad se reduce a la mitad
+        for (LineaFactura l : lineas) {
+            double unitPrice = l.getPrecioUnitario();
+            // Si el cliente es mayor, el precio unitario se reduce a la mitad
+            if (cliente instanceof ClienteMayor) {
+                unitPrice = unitPrice / 2.0;
+            }
+            subtotal += l.getCantidad() * unitPrice;
+        }
+
+        // Aplicar descuento final según la implementación del cliente (si corresponde)
+        double totalConDescuento = cliente.aplicarDescuento(subtotal);
+        return totalConDescuento;
     }
 
     public void mostrarFactura() {
         System.out.println("Factura Nº " + numero + " - Fecha: " + fecha);
-        System.out.println("Cliente: " + cliente.getNombre());
+        // Mostrar datos del cliente (apellido, nombre, dirección si disponibles)
+        System.out.println("Cliente: " + cliente.getNombre() + " " + (cliente.getApellido() != null ? cliente.getApellido() : ""));
+        System.out.println("Dirección: " + (cliente.getDireccion() != null ? cliente.getDireccion() : ""));
         System.out.println("Detalle:");
         for (LineaFactura l : lineas) {
-            System.out.println("- " + l.getProducto().getDescripcion() + " x" + l.getCantidad() +
-                               " = $" + l.calcularImporte());
+            double unitPrice = l.getPrecioUnitario();
+            if (cliente instanceof ClienteMayor) {
+                unitPrice = unitPrice / 2.0;
+            }
+            System.out.println("- " + l.getProducto().getDescripcion() + " | Cant: " + l.getCantidad() + " | Unit: $" + unitPrice + " | Importe: $" + l.getCantidad() * unitPrice);
         }
         System.out.println("TOTAL: $" + calcularTotal());
     }

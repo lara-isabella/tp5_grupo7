@@ -20,7 +20,7 @@ public class ClienteMayor extends Cliente {
     }
 
     public double aplicarDescuento(double total) {
-        return total * 0.90; // 10% de descuento
+        return total; 
     }
 
     public void mostrarDatos() {

@@ -54,4 +54,9 @@ public abstract class Cliente {
     }
 
     public abstract void mostrarDatos();
+    // Devuelve el tipo de cliente (por ej. "Mayor" o "Menor")
+    public abstract String getTipoCliente();
+
+    // Permite aplicar un descuento final sobre el total (si corresponde)
+    public abstract double aplicarDescuento(double total);
 }
