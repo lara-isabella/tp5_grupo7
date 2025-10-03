@@ -20,11 +20,15 @@ public class ClienteMenor extends Cliente {
     }
 
     public double aplicarDescuento(double total) {
-        return total * 0.90; // 10% de descuento (si corresponde se aplica desde Factura)
+        // Aplica 10% solo si la obra social es PAMI y hay DNI válido
+        if (this.obraSocial != null && this.obraSocial.equalsIgnoreCase("PAMI") && this.dni > 0) {
+            return total * 0.90;
+        }
+        return total;
     }
 
     public void mostrarDatos() {
-        System.out.println("Cliente Mayor:");
+        System.out.println("Cliente Menor:");
         System.out.println("Nombre: " + nombre + " " + apellido);
         System.out.println("DNI: " + dni);
         System.out.println("Dirección: " + direccion);

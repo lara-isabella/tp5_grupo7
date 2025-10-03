@@ -20,7 +20,7 @@ public class ClienteMayor extends Cliente {
     }
 
     public double aplicarDescuento(double total) {
-        return total; // no discount here; mayor pricing handled per-unit in Factura
+        return total; 
     }
 
     public void mostrarDatos() {
