@@ -16,13 +16,20 @@ public class CollectionStock {
     }
 
     public static void actualizarStock(Producto producto, int cantidadVendida) {
-        if (stock.containsKey(producto)) {
-            int actual = stock.get(producto);
+    if (stock.containsKey(producto)) {
+        int actual = stock.get(producto);
+        if (cantidadVendida > 0 && cantidadVendida <= actual) {
             int nuevo = actual - cantidadVendida;
             stock.put(producto, nuevo);
             producto.setStock(nuevo);
+        } else {
+            System.out.println("Stock insuficiente o cantidad inválida.");
         }
+    } else {
+        System.out.println("Producto no encontrado en el stock.");
     }
+}
+
 
     public static int verificarStock(Producto producto) {
         return stock.getOrDefault(producto, 0);

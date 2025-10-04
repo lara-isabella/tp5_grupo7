@@ -75,11 +75,11 @@ public class Producto {
 
     //Método para actualizar el stock después de una venta
     public void actualizarStock(int cantidadVendida) {
-        if (cantidadVendida > 0) {
-            stock -= cantidadVendida;
-            System.out.println("Stock actualizado. El nuevo stock es: " + stock);
-        } else {
-            System.out.println("Cantidad inválida. No es posible actualizar el stock.");
-        }
+    if (cantidadVendida > 0 && cantidadVendida <= stock) {
+        stock -= cantidadVendida;
+        System.out.println("Stock actualizado. El nuevo stock es: " + stock);
+    } else {
+        System.out.println("Cantidad inválida o insuficiente stock. No se puede realizar la venta.");
+    }
     }
 }
