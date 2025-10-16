@@ -28,7 +28,7 @@ public class Factura {
         // - Primero: descuento propio del producto (Producto.getPrecioConDescuento())
         // - Segundo: si el cliente es mayor, el precio por unidad se reduce a la mitad
         for (LineaFactura l : lineas) {
-            double unitPrice = l.getPrecioUnitario();
+            double unitPrice = l.getProducto().getPrecioConDescuento();
             // Si el cliente es mayor, el precio unitario se reduce a la mitad
             if (cliente instanceof ClienteMayor) {
                 unitPrice = unitPrice / 2.0;
@@ -48,11 +48,11 @@ public class Factura {
         System.out.println("Dirección: " + (cliente.getDireccion() != null ? cliente.getDireccion() : ""));
         System.out.println("Detalle:");
         for (LineaFactura l : lineas) {
-            double unitPrice = l.getPrecioUnitario();
+            double unitPrice = l.getProducto().getPrecioConDescuento();
             if (cliente instanceof ClienteMayor) {
                 unitPrice = unitPrice / 2.0;
             }
-            System.out.println("- " + l.getProducto().getDescripcion() + " | Cant: " + l.getCantidad() + " | Unit: $" + unitPrice + " | Importe: $" + l.getCantidad() * unitPrice);
+            System.out.println("- " + l.getProducto().getDescripcion() + " | Cant: " + l.getCantidad() + " | Unit: $" + unitPrice + " | Importe: $" + (l.getCantidad() * unitPrice));
         }
         System.out.println("TOTAL: $" + calcularTotal());
     }

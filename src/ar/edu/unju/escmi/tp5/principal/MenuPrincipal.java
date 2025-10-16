@@ -124,7 +124,8 @@ public class MenuPrincipal {
                                 String nombre = sc.nextLine();
                                 Cliente cliente = CollectionCliente.buscarCliente(nombre);
                                 if (cliente != null) {
-                                    System.out.println("Cliente encontrado: " + cliente.getNombre());
+                                    System.out.println("Cliente encontrado:");
+                                    cliente.mostrarDatos();
                                 } else {
                                     // Registrar nuevo cliente: elegir Mayor o Menor según el TP
                                     System.out.println("Cliente no registrado. Seleccione tipo de cliente a registrar:");

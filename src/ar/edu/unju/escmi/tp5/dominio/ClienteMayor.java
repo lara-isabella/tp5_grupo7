@@ -8,7 +8,7 @@ public class ClienteMayor extends Cliente {
     }
 
     public ClienteMayor(String nombre, String apellido, String direccion, int dni, int codigoCliente) {
-        super(nombre, apellido, direccion, dni);
+        super(nombre, apellido, direccion, dni, codigoCliente);
         this.codigoCliente = codigoCliente;
     }
 
@@ -24,7 +24,7 @@ public class ClienteMayor extends Cliente {
     }
 
     public void mostrarDatos() {
-        System.out.println("Cliente Mayor:");
+        System.out.println("Cliente Mayor (Código: " + codigoCliente + "):");
         System.out.println("Nombre: " + nombre + " " + apellido);
         System.out.println("DNI: " + dni);
         System.out.println("Dirección: " + direccion);

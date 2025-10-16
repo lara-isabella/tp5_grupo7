@@ -28,7 +28,7 @@ public class ClienteMenor extends Cliente {
     }
 
     public void mostrarDatos() {
-        System.out.println("Cliente Menor:");
+        System.out.println("Cliente Menor (Código: " + getCodigoCliente() + "):");
         System.out.println("Nombre: " + nombre + " " + apellido);
         System.out.println("DNI: " + dni);
         System.out.println("Dirección: " + direccion);

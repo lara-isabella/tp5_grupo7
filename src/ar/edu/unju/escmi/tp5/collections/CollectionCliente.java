@@ -11,9 +11,20 @@ public class CollectionCliente {
         clientes.add(cliente);
     }
 
+    // Buscar cliente por código (nuevo comportamiento solicitado)
+    public static Cliente buscarCliente(int codigoCliente) {
+        for (Cliente c : clientes) {
+            if (c.getCodigoCliente() == codigoCliente) {
+                return c;
+            }
+        }
+        return null;
+    }
+
+    // Mantener búsqueda por nombre si se necesita en otros lugares
     public static Cliente buscarCliente(String nombre) {
         for (Cliente c : clientes) {
-            if (c.getNombre().equalsIgnoreCase(nombre)) {
+            if (c.getNombre() != null && c.getNombre().equalsIgnoreCase(nombre)) {
                 return c;
             }
         }
@@ -22,7 +33,7 @@ public class CollectionCliente {
 
     public static void mostrarClientes() {
         for (Cliente c : clientes) {
-            System.out.println("- " + c.getNombre());
+            System.out.println("- " + c.getNombre() + " (Código: " + c.getCodigoCliente() + ")");
         }
     }
 }
