@@ -1,10 +1,11 @@
 package ar.edu.unju.escmi.tp5.dominio;
 
-public abstract class Cliente {
+public class Cliente {
     protected String nombre;
     protected String apellido;
     protected String direccion;
     protected int dni;
+    protected int codigoCliente;
 
     public Cliente() {
 
@@ -15,6 +16,11 @@ public abstract class Cliente {
         this.apellido = apellido;
         this.direccion = direccion;
         this.dni = dni;
+    }
+
+    public Cliente(String nombre, String apellido, String direccion, int dni, int codigoCliente) {
+        this(nombre, apellido, direccion, dni);
+        this.codigoCliente = codigoCliente;
     }
 
     
@@ -35,6 +41,10 @@ public abstract class Cliente {
         return dni;
     }
 
+    public int getCodigoCliente() {
+        return codigoCliente;
+    }
+
     
 
     public void setNombre(String nombre) {
@@ -53,10 +63,25 @@ public abstract class Cliente {
         this.dni = dni;
     }
 
-    public abstract void mostrarDatos();
-    // Devuelve el tipo de cliente (por ej. "Mayor" o "Menor")
-    public abstract String getTipoCliente();
+    public void setCodigoCliente(int codigoCliente) {
+        this.codigoCliente = codigoCliente;
+    }
 
-    // Permite aplicar un descuento final sobre el total (si corresponde)
-    public abstract double aplicarDescuento(double total);
+    // Implementaciones por defecto (el diagrama muestra estos métodos como no abstractos)
+    public void mostrarDatos() {
+        System.out.println("Cliente (Código: " + codigoCliente + ")");
+        System.out.println("Nombre: " + nombre + " " + (apellido != null ? apellido : ""));
+        System.out.println("DNI: " + dni);
+        System.out.println("Dirección: " + (direccion != null ? direccion : ""));
+    }
+
+    // Devuelve el tipo de cliente (por defecto "Cliente")
+    public String getTipoCliente() {
+        return "Cliente";
+    }
+
+    // Permite aplicar un descuento final sobre el total (por defecto no aplica descuento)
+    public double aplicarDescuento(double total) {
+        return total;
+    }
 }

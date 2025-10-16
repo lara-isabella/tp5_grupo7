@@ -11,6 +11,12 @@ public class CollectionFactura {
         facturas.add(factura);
     }
 
+    public static Factura guardarFactura(Factura factura) {
+        agregarFactura(factura);
+        return factura;
+    
+    }
+
     public static Factura buscarFactura(int numero) {
         for (Factura f : facturas) {
             if (f.getNumero() == numero) {
