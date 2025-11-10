@@ -102,77 +102,73 @@ public class MenuPrincipal {
                                 System.out.print("Stock inicial: ");
                                 int stock = sc.nextInt();
 
-                                // Validar descuento
                                 if (!(descPorc == 0 || descPorc == 25 || descPorc == 30)) {
                                     System.out.println("Descuento inválido. Debe ser 0, 25 o 30.");
                                     break;
                                 }
 
-                               Producto nuevo = new Producto(cod, desc, precio, descPorc, stock);
-CollectionProducto.guardarProducto(nuevo);
-CollectionStock.agregarProducto(nuevo, stock);
+                                Producto nuevo = new Producto(cod, desc, precio, descPorc, stock);
+                                CollectionProducto.guardarProducto(nuevo);
+                                CollectionStock.agregarProducto(nuevo, stock);
 
-System.out.println("Producto agregado con éxito.");
+                                System.out.println("Producto agregado con éxito.");
                             }
 
+                            case 2 -> { //IDENTIFICAR CLIENTES
+                                System.out.print("\nIngrese DNI del cliente: ");
+                                int dni = sc.nextInt();
+                                sc.nextLine();
 
-                            case 2 -> { // Identificar clientes
-                                System.out.print("Nombre del cliente: ");
-                                String nombre = sc.nextLine();
-                                Cliente cliente = CollectionCliente.buscarCliente(nombre);
+                                Cliente cliente = CollectionCliente.buscarCliente(dni);
+
                                 if (cliente != null) {
-                                    System.out.println("Cliente encontrado:");
-                                    cliente.mostrarDatos();
+                                    System.out.println("\nCliente encontrado:");
+                                    System.out.println(cliente.mostrarDatos());
                                 } else {
-                                    // Registrar nuevo cliente: elegir Mayor o Menor según el TP
-                                    System.out.println("Cliente no registrado. Seleccione tipo de cliente a registrar:");
+                                    System.out.println("\nCliente no registrado. Seleccione tipo de cliente a registrar:");
                                     System.out.println("1 - Cliente Mayor");
                                     System.out.println("2 - Cliente Menor");
                                     System.out.print("Ingrese una opción: ");
                                     int tipo = sc.nextInt();
                                     sc.nextLine();
 
+                                    System.out.print("Nombre: ");
+                                    String nombre = sc.nextLine();
+                                    System.out.print("Apellido: ");
+                                    String apellido = sc.nextLine();
+                                    System.out.print("Dirección: ");
+                                    String direccion = sc.nextLine();
+
                                     if (tipo == 1) {
-                                        System.out.print("Apellido: ");
-                                        String apellido = sc.nextLine();
-                                        System.out.print("Dirección: ");
-                                        String direccion = sc.nextLine();
-                                        System.out.print("DNI: ");
-                                        int dni = sc.nextInt();
-                                        sc.nextLine();
-                                        System.out.print("Código de cliente: ");
+                                        System.out.print("Código de cliente mayorista: ");
                                         int codigo = sc.nextInt();
                                         sc.nextLine();
 
                                         ClienteMayor nuevo = new ClienteMayor(nombre, apellido, direccion, dni, codigo);
                                         CollectionCliente.agregarCliente(nuevo);
-                                        System.out.println("Cliente Mayor registrado: " + nuevo.getNombre());
+                                        System.out.println("\n Cliente MAYORISTA registrado:");
+                                        System.out.println(nuevo.mostrarDatos());
 
                                     } else if (tipo == 2) {
-                                        System.out.print("Apellido: ");
-                                        String apellido = sc.nextLine();
-                                        System.out.print("Dirección: ");
-                                        String direccion = sc.nextLine();
-                                        System.out.print("DNI: ");
-                                        int dni = sc.nextInt();
-                                        sc.nextLine();
                                         System.out.print("Obra Social: ");
                                         String obraSocial = sc.nextLine();
 
                                         ClienteMenor nuevo = new ClienteMenor(nombre, apellido, direccion, dni, obraSocial);
                                         CollectionCliente.agregarCliente(nuevo);
-                                        System.out.println("Cliente Menor registrado: " + nuevo.getNombre());
+                                        System.out.println("\n Cliente MINORISTA registrado:");
+                                        System.out.println(nuevo.mostrarDatos());
 
                                     } else {
-                                        System.out.println("Opción inválida. No se registró el cliente.");
+                                        System.out.println(" Opción inválida. No se registró el cliente.");
                                     }
                                 }
                             }
 
-                            case 3 -> { // Realizar venta
-                                System.out.print("Nombre cliente: ");
-                                String cliNombre = sc.nextLine();
-                                Cliente cli = CollectionCliente.buscarCliente(cliNombre);
+                            case 3 -> { //REALIZAR VENTA
+                                System.out.print("Ingrese DNI del cliente: ");
+                                int dniCli = sc.nextInt();
+                                sc.nextLine();
+                                Cliente cli = CollectionCliente.buscarCliente(dniCli);
 
                                 if (cli == null) {
                                     System.out.println("Cliente no encontrado. Debe registrarlo primero.");
@@ -231,6 +227,10 @@ System.out.println("Producto agregado con éxito.");
 
     // --- Main ---
     public static void main(String[] args) {
+
+        //Se cargan los clientes precargados al iniciar el programa
+        CollectionCliente.precargarClientes();
+
         byte op;
         do {
             System.out.println("\n **** Menú de Opciones ****");

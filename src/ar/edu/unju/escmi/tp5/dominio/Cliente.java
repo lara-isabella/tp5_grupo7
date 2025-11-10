@@ -52,11 +52,9 @@ public abstract class Cliente {
         this.direccion = direccion;
     }
 
-    //Métodos del UML (abstract porque cada clase hija los define)
     public abstract String getTipoCliente();
     public abstract String mostrarDatos();
 
-    //Buscar factura (del UML)
     public static void buscarFactura(int numeroFactura) {
         Factura factura = CollectionFactura.buscarFactura(numeroFactura);
         if (factura != null) {
