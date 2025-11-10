@@ -1,33 +1,45 @@
 package ar.edu.unju.escmi.tp5.dominio;
 
 public class ClienteMayor extends Cliente {
-    private int codigoCliente;
 
+    private int codigo;
+
+    // Constructor vacío
     public ClienteMayor() {
-        
     }
 
-    public ClienteMayor(String nombre, String apellido, String direccion, int dni, int codigoCliente) {
-        super(nombre, apellido, direccion, dni, codigoCliente);
-        this.codigoCliente = codigoCliente;
+    // ✅ Constructor adaptado al padre: (nombre, apellido, direccion, dni) + codigo propio
+    public ClienteMayor(String nombre, String apellido, String direccion, int dni, int codigo) {
+        super(nombre, apellido, direccion, dni);
+        this.codigo = codigo;
     }
 
-    public int getCodigoCliente() { return codigoCliente; }
-    public void setCodigoCliente(int codigoCliente) { this.codigoCliente = codigoCliente; }
+    public int getCodigo() {
+        return codigo;
+    }
 
+    public void setCodigo(int codigo) {
+        this.codigo = codigo;
+    }
+
+    // ✅ Método del UML
+    @Override
     public String getTipoCliente() {
-        return "Mayor";
+        return "Mayorista";
     }
 
-    public double aplicarDescuento(double total) {
-        return total; 
+    // ✅ Método del UML
+    @Override
+    public String mostrarDatos() {
+        return "Cliente " + getTipoCliente() + " ➤ DNI: " + dni +
+                " | Nombre: " + nombre + " " + apellido +
+                " | Dirección: " + direccion +
+                " | Código: " + codigo;
     }
 
-    public void mostrarDatos() {
-        System.out.println("Cliente Mayor (Código: " + codigoCliente + "):");
-        System.out.println("Nombre: " + nombre + " " + apellido);
-        System.out.println("DNI: " + dni);
-        System.out.println("Dirección: " + direccion);
-        System.out.println("Código Cliente: " + codigoCliente);
+    // ✅ toString reutiliza mostrarDatos()
+    @Override
+    public String toString() {
+        return mostrarDatos();
     }
 }
