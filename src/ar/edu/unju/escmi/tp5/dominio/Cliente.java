@@ -58,7 +58,7 @@ public abstract class Cliente {
 
     //Buscar factura (del UML)
     public static void buscarFactura(int numeroFactura) {
-        Factura factura = CollectionFactura.buscarFactura(int numeroFactura);
+        Factura factura = CollectionFactura.buscarFactura(numeroFactura);
         if (factura != null) {
             System.out.println("Factura encontrada: ");
             factura.mostrarFactura();
