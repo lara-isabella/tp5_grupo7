@@ -2,8 +2,8 @@ package ar.edu.unju.escmi.tp5.dominio;
 
 public class AgenteAdmin extends Empleado {
 
-    public AgenteAdmin(String nombre, String apellido, String direccion) {
-        super(nombre, apellido, direccion);
+    public AgenteAdmin(String nombres, String apellido, String direccion) {
+        super(nombres, apellido, direccion);
     }
 
     @Override
@@ -13,8 +13,11 @@ public class AgenteAdmin extends Empleado {
         System.out.println("2. Realizar Venta");
     }
     
-    public void realizarVenta() {
-        System.out.println("Accion: realizarVenta() - implementacion simplificada");
-        // Implementacion simple: se podría delegar a MenuPrincipal en el flujo real
-    }
+    public void realimentarStockFactura() {}
+    
+    public void verificarCliente() {}
+    
+    public void verificarStock() {}
+    
+    public void altaDeProducto() {}
 }
