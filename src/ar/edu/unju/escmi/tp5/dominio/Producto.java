@@ -1,45 +1,44 @@
 package ar.edu.unju.escmi.tp5.dominio;
 
 public class Producto {
-    
-    private int codigoProducts;
+    private int codigoProducto;
     private String descripcion;
-    private double precioUnit;
+    private double precio;
     private int descuento;
     private int stock;
 
     public Producto() {}
 
-    public Producto(int codigoProducts, String descripcion, double precioUnit, int descuento, int stock) {
-        this.codigoProducts = codigoProducts;
+    public Producto(int codigoProducto, String descripcion, double precio, int descuento, int stock) {
+        this.codigoProducto = codigoProducto;
         this.descripcion = descripcion;
-        this.precioUnit = precioUnit;
+        this.precio = precio;
         this.descuento = descuento;
         this.stock = stock;
     }
 
-    public void mostrarProducts() {
-        System.out.println("Código: " + codigoProducts +
+    public void mostrarProducto() {
+        System.out.println("Código: " + codigoProducto +
                            " | Descripción: " + descripcion +
-                           " | Precio: $" + precioUnit +
+                           " | Precio: $" + precio +
                            " | Descuento: " + descuento + "%" +
                            " | Stock: " + stock);
     }
 
-    public void reducirStock(int cantidadVendida) {
+    public void actualizarStock(int cantidadVendida) {
         if (cantidadVendida <= stock) {
             stock -= cantidadVendida;
         } else {
             System.out.println("No hay suficiente stock para el producto: " + descripcion);
         }
     }
-
-    public int getCodigoProducts() { return codigoProducts; }
-    public void setCodigoProducts(int codigoProducts) { this.codigoProducts = codigoProducts; }
+    
+    public int getCodigoProducto() { return codigoProducto; }
+    public void setCodigoProducto(int codigoProducto) { this.codigoProducto = codigoProducto; }
     public String getDescripcion() { return descripcion; }
     public void setDescripcion(String descripcion) { this.descripcion = descripcion; }
-    public double getPrecioUnit() { return precioUnit; }
-    public void setPrecioUnit(double precioUnit) { this.precioUnit = precioUnit; }
+    public double getPrecio() { return precio; }
+    public void setPrecio(double precio) { this.precio = precio; }
     public int getDescuento() { return descuento; }
     public void setDescuento(int descuento) { this.descuento = descuento; }
     public int getStock() { return stock; }

@@ -1,24 +1,19 @@
 package ar.edu.unju.escmi.tp5.dominio;
 
-public class ClienteMenor extends Cliente {
+public class ClienteMinorista extends Cliente {
 
     private String obraSocial;
 
-    public ClienteMenor() {
+    public ClienteMinorista() {
     }
 
-    public ClienteMenor(String nombres, String apellidos, String direccion, int cuit, String obraSocial) {
-        super(nombres, apellidos, direccion, cuit);
+    public ClienteMinorista(String nombre, String apellido, String direccion, int dni, String obraSocial) {
+        super(nombre, apellido, direccion, dni);
         this.obraSocial = obraSocial;
     }
 
-    public String getObraSocial() {
-        return obraSocial;
-    }
-
-    public void setObraSocial(String obraSocial) {
-        this.obraSocial = obraSocial;
-    }
+    public String getObraSocial() { return obraSocial; }
+    public void setObraSocial(String obraSocial) { this.obraSocial = obraSocial; }
 
     
     @Override
@@ -28,14 +23,14 @@ public class ClienteMenor extends Cliente {
 
     @Override
     public String mostrarDatos() {
-        return "Cliente " + getTipoCliente() + " CUIT: " + getCuit() +
-                " | Nombre: " + getNombres() + " " + getApellidos() +
+        return "Cliente " + getTipoCliente() + " DNI: " + getDni() +
+                " | Nombre: " + getNombre() + " " + getApellido() +
                 " | Dirección: " + getDireccion() +
                 " | Obra Social: " + obraSocial;
     }
 
-    public double aplicaDescXobraSocial(double precio) {
-        if (this.getCuit() != 0) {
+    public double aplicarDescuento(double precio) {
+        if (this.getDni() != 0) {
             if (this.obraSocial != null && this.obraSocial.equalsIgnoreCase("PAMI")) {
                 System.out.println("El cliente tiene un descuento del 10% en la compra.");
                 return precio * 0.9;
