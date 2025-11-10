@@ -2,9 +2,10 @@ package ar.edu.unju.escmi.tp5.collections;
 
 import java.util.HashMap;
 import java.util.Map;
+
 import ar.edu.unju.escmi.tp5.dominio.Cliente;
 import ar.edu.unju.escmi.tp5.dominio.ClienteMayorista;
-import ar.edu.unju.escmi.tp5.dominio.ClienteMinorista; 
+import ar.edu.unju.escmi.tp5.dominio.ClienteMinorista;
 
 public class CollectionCliente {
 
@@ -20,14 +21,8 @@ public class CollectionCliente {
 
     public static void precargarCliente() {
         if (clientes.isEmpty()) {
-            clientes.put(123, new ClienteMayorista("Carlos", "Suarez", "Av. Siempre Viva 123", 123, 1001));
-            clientes.put(456, new ClienteMinorista("Ana", "Ramirez", "Calle Belgrano 456", 456, "PAMI"));
-        }
-    }
-    
-    public static void mostrarClientes() {
-        for (Cliente cliente : clientes.values()) {
-            System.out.println(cliente.mostrarDatos());
+            clientes.put(40123456, new ClienteMinorista("Juan", "Perez", "Av. Siempre Viva 123", 40123456, "Osplad"));
+            clientes.put(30987654, new ClienteMayorista("Maria", "Lopez", "Calle Falsa 456", 30987654, 500));
         }
     }
 }

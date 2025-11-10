@@ -1,16 +1,12 @@
 package ar.edu.unju.escmi.tp5.dominio;
 
-import ar.edu.unju.escmi.tp5.collections.CollectionFactura;
-
 public abstract class Cliente {
-    
-    protected int dni;
     protected String nombre;
     protected String apellido;
     protected String direccion;
+    protected int dni;
 
-    public Cliente() {
-    }
+    public Cliente() {}
 
     public Cliente(String nombre, String apellido, String direccion, int dni) {
         this.nombre = nombre;
@@ -19,30 +15,14 @@ public abstract class Cliente {
         this.dni = dni;
     }
 
-    public int getDni() { return dni; }
-    public void setDni(int dni) { this.dni = dni; }
+    public abstract double aplicarDescuento(double precio);
+
     public String getNombre() { return nombre; }
     public void setNombre(String nombre) { this.nombre = nombre; }
     public String getApellido() { return apellido; }
     public void setApellido(String apellido) { this.apellido = apellido; }
     public String getDireccion() { return direccion; }
     public void setDireccion(String direccion) { this.direccion = direccion; }
-
-    public abstract String getTipoCliente();
-    public abstract String mostrarDatos();
-
-    public void buscarFactura(int numeroFactura) {
-        Factura factura = CollectionFactura.buscarFactura(numeroFactura);
-        if (factura != null) {
-            System.out.println("Factura encontrada: ");
-            factura.mostrarFactura();
-        } else {
-            System.out.println("No se encontró la factura con número: " + numeroFactura);
-        }
-    }
-
-    @Override
-    public String toString() {
-        return mostrarDatos(); 
-    }
+    public int getDni() { return dni; }
+    public void setDni(int dni) { this.dni = dni; }
 }

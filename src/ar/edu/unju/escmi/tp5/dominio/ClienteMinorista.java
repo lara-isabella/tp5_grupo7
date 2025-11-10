@@ -1,10 +1,10 @@
 package ar.edu.unju.escmi.tp5.dominio;
 
 public class ClienteMinorista extends Cliente {
-
     private String obraSocial;
 
     public ClienteMinorista() {
+        super();
     }
 
     public ClienteMinorista(String nombre, String apellido, String direccion, int dni, String obraSocial) {
@@ -12,40 +12,11 @@ public class ClienteMinorista extends Cliente {
         this.obraSocial = obraSocial;
     }
 
+    @Override
+    public double aplicarDescuento(double precio) {
+        return precio * 0.85; 
+    }
+
     public String getObraSocial() { return obraSocial; }
     public void setObraSocial(String obraSocial) { this.obraSocial = obraSocial; }
-
-    
-    @Override
-    public String getTipoCliente() {
-        return "Minorista";
-    }
-
-    @Override
-    public String mostrarDatos() {
-        return "Cliente " + getTipoCliente() + " DNI: " + getDni() +
-                " | Nombre: " + getNombre() + " " + getApellido() +
-                " | Dirección: " + getDireccion() +
-                " | Obra Social: " + obraSocial;
-    }
-
-    public double aplicarDescuento(double precio) {
-        if (this.getDni() != 0) {
-            if (this.obraSocial != null && this.obraSocial.equalsIgnoreCase("PAMI")) {
-                System.out.println("El cliente tiene un descuento del 10% en la compra.");
-                return precio * 0.9;
-            } else {
-                System.out.println("El cliente no tiene descuento.");
-                return precio;
-            }
-        } else {
-            System.out.println("El cliente no está identificado.");
-            return precio;
-        }
-    }
-
-    @Override
-    public String toString() {
-        return mostrarDatos();
-    }
 }

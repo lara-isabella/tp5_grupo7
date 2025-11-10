@@ -5,61 +5,57 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Factura {
-
-    private static int contador = 0;
-    private int numeroFactura;
+    
+    private int nroFactura;
     private LocalDate fecha;
+    private Cliente cliente;
+    private List<Detalle> detalles;
     private double total;
-
-    private Cliente cliente; 
-    private List<Detalle> detalles; 
+    private static int CONTADOR_FACTURAS = 1000;
 
     public Factura(Cliente cliente) {
-        this.numeroFactura = ++contador;
+        this.nroFactura = ++CONTADOR_FACTURAS;
         this.fecha = LocalDate.now();
-        this.total = 0;
         this.cliente = cliente;
         this.detalles = new ArrayList<>();
-    }
-
-    public Factura(int numeroFactura, Cliente cliente) {
-        this.numeroFactura = numeroFactura;
-        this.fecha = LocalDate.now();
-        this.total = 0;
-        this.cliente = cliente;
-        this.detalles = new ArrayList<>();
+        this.total = 0.0;
     }
 
     public void agregarDetalle(Detalle detalle) {
-        detalles.add(detalle);
-        calcularTotal(); 
+        this.detalles.add(detalle);
+        this.total = calcularTotal();
     }
 
     public double calcularTotal() {
-        total = 0;
-        for (Detalle d : detalles) {
-            total += d.calcularImporte();
+        double sum = 0.0;
+        for (Detalle detalle : detalles) {
+            sum += detalle.calcularSubtotal();
         }
-        return total;
+        this.total = sum;
+        return this.total;
     }
 
     public void mostrarFactura() {
-        System.out.println("=========================================");
-        System.out.println("Factura N°: " + numeroFactura);
+        System.out.println("\n--- FACTURA NRO: " + nroFactura + " ---");
         System.out.println("Fecha: " + fecha);
-        System.out.println("Cliente: " + cliente.getNombre() + " " + cliente.getApellido());
-        System.out.println("Detalles:");
+        System.out.println("Cliente: " + cliente.getNombre() + " " + cliente.getApellido() + " (DNI: " + cliente.getDni() + ")");
+        System.out.println("------------------------------------");
+        System.out.println("Detalles de la Venta:");
         for (Detalle d : detalles) {
-            d.mostrarLinea();
+            System.out.printf("  %d x %s @ $%.2f = $%.2f%n", 
+                d.getCantidad(), 
+                d.getProducto().getDescripcion(), 
+                d.getPrecioUnitario(), 
+                d.getSubtotal());
         }
-        System.out.println("-----------------------------------------");
-        System.out.println("TOTAL: $" + String.format("%.2f", total));
-        System.out.println("=========================================");
+        System.out.println("------------------------------------");
+        System.out.printf("TOTAL: $%.2f%n", this.total);
+        System.out.println("------------------------------------");
     }
 
-    public int getNumeroFactura() { return numeroFactura; }
+    public int getNroFactura() { return nroFactura; }
     public LocalDate getFecha() { return fecha; }
-    public double getTotal() { return total; }
     public Cliente getCliente() { return cliente; }
     public List<Detalle> getDetalles() { return detalles; }
+    public double getTotal() { return total; }
 }

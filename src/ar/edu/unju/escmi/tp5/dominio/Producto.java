@@ -1,6 +1,7 @@
 package ar.edu.unju.escmi.tp5.dominio;
 
 public class Producto {
+    
     private int codigoProducto;
     private String descripcion;
     private double precio;
@@ -15,14 +16,6 @@ public class Producto {
         this.precio = precio;
         this.descuento = descuento;
         this.stock = stock;
-    }
-
-    public void mostrarProducto() {
-        System.out.println("Código: " + codigoProducto +
-                           " | Descripción: " + descripcion +
-                           " | Precio: $" + precio +
-                           " | Descuento: " + descuento + "%" +
-                           " | Stock: " + stock);
     }
 
     public void actualizarStock(int cantidadVendida) {

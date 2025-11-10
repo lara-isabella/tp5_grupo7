@@ -14,6 +14,7 @@ import ar.edu.unju.escmi.tp5.dominio.ClienteMinorista;
 import ar.edu.unju.escmi.tp5.dominio.Detalle;
 
 public class MenuPrincipal {
+
     static void menuCliente(Scanner sc) {
         byte op;
         do {
@@ -30,6 +31,7 @@ public class MenuPrincipal {
                     System.out.print("Ingrese el numero de factura a buscar: ");
                     int numeroFactura = sc.nextInt();
                     sc.nextLine(); 
+                    
                     Factura factura = CollectionFactura.buscarFactura(numeroFactura);
                     if (factura != null) {
                         factura.mostrarFactura();
@@ -62,7 +64,7 @@ public class MenuPrincipal {
             sc.nextLine(); 
 
             switch (op) {
-                case 1: 
+                case 1: // Encargado de Ventas
                     do {
                         System.out.println("\n--- Menú Encargado de Ventas ---");
                         System.out.println("1 - Mostrar Ventas");
@@ -83,7 +85,9 @@ public class MenuPrincipal {
                                 System.out.print("Ingrese el código del producto: ");
                                 int codigoProducto = sc.nextInt();
                                 sc.nextLine();
-                                Producto prod = CollectionProducto.buscarProductoPorCodigo(codigoProducto);
+                                
+                                // ✅ Llama al método 100% fiel al UML
+                                Producto prod = CollectionProducto.buscarProducto(codigoProducto); 
                                 if (prod != null) {
                                     System.out.println("Stock disponible: " + prod.getStock());
                                 } else {
@@ -106,7 +110,7 @@ public class MenuPrincipal {
                     } while (op2 != 4);
                     break;
 
-                case 2:
+                case 2: // Agente Administrativo
                     do {
                         System.out.println("\n--- Menú Agente Administrativo ---");
                         System.out.println("1 - Dar Alta de Producto");
@@ -117,7 +121,7 @@ public class MenuPrincipal {
                         sc.nextLine(); 
 
                         switch (op3) {
-                            case 1: 
+                            case 1: // Alta de producto
                                 System.out.println("Dar Alta de Producto");
                                 System.out.print("Ingrese código de producto: ");
                                 int codigoProducto = sc.nextInt(); sc.nextLine();
@@ -130,8 +134,10 @@ public class MenuPrincipal {
                                     System.out.print("Ingrese descuento (0, 25 o 30): ");
                                     descuento = sc.nextInt();
                                 } while (descuento != 0 && descuento != 25 && descuento != 30);
+                                
                                 System.out.print("Ingrese stock inicial: ");
                                 int stock = sc.nextInt(); sc.nextLine();
+
                                 Producto productoNuevo = new Producto(codigoProducto, descripcion, precio, descuento, stock);
                                 CollectionProducto.guardarProducto(productoNuevo);
 
@@ -139,7 +145,7 @@ public class MenuPrincipal {
                                 delay(2000); 
                                 break;
                                 
-                            case 2: 
+                            case 2: // Realizar Venta
                                 System.out.println("Realizar Venta");
                                 System.out.print("Ingrese DNI del cliente: ");
                                 int dniCli = sc.nextInt(); sc.nextLine();
@@ -151,13 +157,15 @@ public class MenuPrincipal {
                                     break;
                                 }
 
-                                Factura factura = new Factura(cliente);
+                                Factura factura = new Factura(cliente); 
                                 boolean seguirComprando = true;
                                 
                                 while (seguirComprando) {
                                     System.out.print("Ingrese el código del producto: ");
                                     int codigoProductoVenta = sc.nextInt();
-                                    Producto producto = CollectionProducto.buscarProductoPorCodigo(codigoProductoVenta);
+                                    
+                                    // ✅ Llama al método 100% fiel al UML
+                                    Producto producto = CollectionProducto.buscarProducto(codigoProductoVenta);
                                     
                                     if (producto == null) {
                                         System.out.println("Producto no encontrado.");
@@ -177,19 +185,25 @@ public class MenuPrincipal {
                                     if (producto.getStock() < cant) {
                                         System.out.println("Stock insuficiente. Stock disponible: " + producto.getStock());
                                     } else {
+                                        // 1. Calcular precio con descuento de producto (si aplica)
                                         double precioUnitario = producto.getPrecio();
                                         if (producto.getDescuento() > 0) {
                                             precioUnitario = precioUnitario * (1 - (producto.getDescuento() / 100.0));
                                         }
 
+                                        // 2. Aplicar descuentos de cliente
                                         if (cliente instanceof ClienteMayorista) {
+                                            // La lógica del 9.6: 50% de descuento adicional
                                             precioUnitario = precioUnitario / 2; 
                                         } else if (cliente instanceof ClienteMinorista) {
-                                            ClienteMinorista cm = (ClienteMinorista) cliente;
-                                            precioUnitario = cm.aplicarDescuento(precioUnitario);
+                                            // Aplica el 15% adicional del cliente minorista
+                                            precioUnitario = cliente.aplicarDescuento(precioUnitario);
                                         }
+                                        
                                         Detalle detalle = new Detalle(producto, cant, precioUnitario);
                                         factura.agregarDetalle(detalle);
+                                        
+                                        // ✅ Llama al método helper esencial
                                         producto.actualizarStock(cant); 
                                         System.out.println("Producto agregado.");
                                     }
@@ -266,6 +280,7 @@ public class MenuPrincipal {
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
         byte op;
+        
         CollectionCliente.precargarCliente();
         CollectionEmpleado.precargarEmpleado();
         CollectionProducto.precargarProducto();
@@ -296,6 +311,7 @@ public class MenuPrincipal {
 
         sc.close();
     }
+
     public static void delay(int milisegundos) {
         try {
             Thread.sleep(milisegundos);
