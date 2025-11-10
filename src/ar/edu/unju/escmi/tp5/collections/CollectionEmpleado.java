@@ -11,9 +11,9 @@ public class CollectionEmpleado {
         empleados.add(e);
     }
 
-    public static Empleado buscarEmpleadoPorNombre(String nombre) {
+    public static Empleado comprobarIngreso(String nombres) {
         for (Empleado e : empleados) {
-            if (e.getNombre().equalsIgnoreCase(nombre)) {
+            if (e.getNombres().equalsIgnoreCase(nombres)) {
                 return e;
             }
         }
@@ -22,7 +22,7 @@ public class CollectionEmpleado {
 
     public static void mostrarEmpleados() {
         for (Empleado e : empleados) {
-            System.out.println(e.getTipoEmpleado() + ": " + e.getNombre() + " " + e.getApellido());
+            System.out.println(e.getTipoEmpleado() + ": " + e.getNombres() + " " + e.getApellido());
         }
     }
 }

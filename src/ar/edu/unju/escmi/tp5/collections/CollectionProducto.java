@@ -6,28 +6,23 @@ import ar.edu.unju.escmi.tp5.dominio.Producto;
 
 public class CollectionProducto {
 
-    // Atributo público y estático según la consigna/diagrama
     public static List<Producto> productos = new ArrayList<>();
 
-    // Guarda (agrega) un producto a la colección
-    public static void guardarProducto(Producto producto) {
+    public static void guardarProducts(Producto producto) {
         productos.add(producto);
         System.out.println("Producto guardado: " + producto.getDescripcion());
     }
 
-    // Busca un producto por su código y lo devuelve (o null si no existe)
-    public static Producto buscarProducto(int codigoProducto) {
+    public static Producto buscarProducts(int codigoProducto) {
         for (Producto p : productos) {
-            if (p.getCodigoProducto() == codigoProducto) {
+            if (p.getCodigoProducts() == codigoProducto) {
                 return p;
             }
         }
         return null;
     }
 
-    // Precarga algunos productos de ejemplo (útil para pruebas)
-    public static void precargarProductos() {
-        // Evitar duplicados si ya se precargaron
+    public static void precargarProducts() {
         if (!productos.isEmpty()) return;
 
         productos.add(new Producto(1001, "Fideo Knorr Spaghetti x 500 gr.", 1200.00, 0, 5000));
@@ -37,15 +32,14 @@ public class CollectionProducto {
         System.out.println("Precarga de productos realizada. Total productos: " + productos.size());
     }
 
-    // Muestra todos los productos cargados
-    public static void mostrarProductos() {
+    public static void mostrarProducts() {
         if (productos.isEmpty()) {
             System.out.println("No hay productos cargados.");
             return;
         }
         System.out.println("----- LISTA DE PRODUCTOS -----");
         for (Producto p : productos) {
-            p.mostrarProducto();
+            p.mostrarProducts();
         }
     }
 }
