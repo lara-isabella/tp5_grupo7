@@ -35,7 +35,7 @@ public void actualizarStock(int cantidadVendida) {
         System.out.println("No hay suficiente stock para el producto: " + descripcion);
     }
 }
-    // Getters y Setters
+    // Getters y Setter
     public int getCodigoProducto() { return codigoProducto; }
     public void setCodigoProducto(int codigoProducto) { this.codigoProducto = codigoProducto; }
     public String getDescripcion() { return descripcion; }
