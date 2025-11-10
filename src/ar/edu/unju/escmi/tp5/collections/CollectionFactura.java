@@ -5,38 +5,47 @@ import java.util.List;
 import ar.edu.unju.escmi.tp5.dominio.Factura;
 
 public class CollectionFactura {
-    public static List<Factura> facturas = new ArrayList<>();
 
-    public static void agregarFactura(Factura factura) {
-        facturas.add(factura);
-    }
+    // Atributo estático: lista de facturas
+    private static List<Factura> facturas = new ArrayList<>();
 
+    // Guarda una factura y la devuelve
     public static Factura guardarFactura(Factura factura) {
-        agregarFactura(factura);
+        facturas.add(factura);
+        System.out.println("Factura guardada correctamente. Número: " + factura.getNumero());
         return factura;
-    
     }
 
-    public static Factura buscarFactura(int numero) {
+    // Busca una factura por número
+    public static Factura buscarFactura(int numeroFactura) {
         for (Factura f : facturas) {
-            if (f.getNumero() == numero) {
+            if (f.getNumero() == numeroFactura) {
                 return f;
             }
         }
         return null;
     }
 
+    // Muestra todas las facturas registradas
     public static void mostrarFacturas() {
+        if (facturas.isEmpty()) {
+            System.out.println("No hay facturas registradas.");
+            return;
+        }
+
+        System.out.println("------ LISTA DE FACTURAS ------");
         for (Factura f : facturas) {
-            f.mostrarFactura();
+            f.mostrarFactura(); // método que debe existir en Factura
+            System.out.println("-------------------------------");
         }
     }
 
+    // Calcula el total de todas las ventas (sumatoria de los totales de cada factura)
     public static double calcularTotalVentas() {
-        double total = 0;
+        double totalVentas = 0;
         for (Factura f : facturas) {
-            total += f.calcularTotal();
+            totalVentas += f.getTotal(); // el atributo total debe estar en Factura
         }
-        return total;
+        return totalVentas;
     }
 }

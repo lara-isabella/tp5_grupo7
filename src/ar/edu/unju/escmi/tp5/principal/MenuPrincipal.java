@@ -108,16 +108,13 @@ public class MenuPrincipal {
                                     break;
                                 }
 
-                                Producto nuevo = new Producto(cod, desc, precio, descPorc, stock);
-                                boolean added = CollectionProducto.guardarProducto(nuevo);
-                                if (!added) {
-                                    System.out.println("Código de producto ya existe. No se agregó.");
-                                    break;
-                                }
-                                CollectionStock.agregarProducto(nuevo, stock);
+                               Producto nuevo = new Producto(cod, desc, precio, descPorc, stock);
+CollectionProducto.guardarProducto(nuevo);
+CollectionStock.agregarProducto(nuevo, stock);
 
-                                System.out.println("Producto agregado con éxito.");
+System.out.println("Producto agregado con éxito.");
                             }
+
 
                             case 2 -> { // Identificar clientes
                                 System.out.print("Nombre del cliente: ");
@@ -213,7 +210,7 @@ public class MenuPrincipal {
 
                                 LineaFactura linea = new LineaFactura(producto, cant);
                                 facturaNueva.agregarLinea(linea);
-                                CollectionFactura.agregarFactura(facturaNueva);
+                                CollectionFactura.guardarFactura(facturaNueva);
                                 CollectionStock.actualizarStock(producto, cant);
 
                                 System.out.println("Venta realizada:");
