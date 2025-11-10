@@ -1,257 +1,306 @@
 package ar.edu.unju.escmi.tp5.principal;
 
 import java.util.Scanner;
-import ar.edu.unju.escmi.tp5.collections.*;
-import ar.edu.unju.escmi.tp5.dominio.*;
+
+import ar.edu.unju.escmi.tp5.collections.CollectionCliente;
+import ar.edu.unju.escmi.tp5.collections.CollectionEmpleado;
+import ar.edu.unju.escmi.tp5.collections.CollectionFactura;
+import ar.edu.unju.escmi.tp5.collections.CollectionProducto;
+import ar.edu.unju.escmi.tp5.dominio.Factura;
+import ar.edu.unju.escmi.tp5.dominio.Producto;
+import ar.edu.unju.escmi.tp5.dominio.Cliente;
+import ar.edu.unju.escmi.tp5.dominio.ClienteMayorista;
+import ar.edu.unju.escmi.tp5.dominio.ClienteMinorista;
+import ar.edu.unju.escmi.tp5.dominio.Detalle;
 
 public class MenuPrincipal {
-
-    static Scanner sc = new Scanner(System.in);
-
-    static void menuCliente() {
+    static void menuCliente(Scanner sc) {
         byte op;
         do {
-            System.out.println("\n=== Menú de Clientes ===");
+            System.out.println("\n **** Menu de Cliente ****");
             System.out.println("1 - Buscar Factura");
             System.out.println("2 - Salir");
-            System.out.print("Ingrese una opción: ");
+            System.out.print("Ingrese una opcion: ");
             op = sc.nextByte();
-            sc.nextLine();
+            sc.nextLine(); 
 
             switch (op) {
-                case 1 -> {
-                    System.out.print("Ingrese número de factura: ");
-                    int nroFactura = sc.nextInt();
-                    Factura factura = CollectionFactura.buscarFactura(nroFactura);
+                case 1:
+                    System.out.println("Buscar Factura");
+                    System.out.print("Ingrese el numero de factura a buscar: ");
+                    int numeroFactura = sc.nextInt();
+                    sc.nextLine(); 
+                    Factura factura = CollectionFactura.buscarFactura(numeroFactura);
                     if (factura != null) {
                         factura.mostrarFactura();
                     } else {
                         System.out.println("Factura no encontrada.");
                     }
-                }
-                case 2 -> System.out.println("Saliendo del Menú de Clientes...");
-                default -> System.out.println("Opción incorrecta.");
+                    delay(3000);
+                    break;
+                case 2:
+                    System.out.println("Saliendo del Menu de Clientes...");
+                    delay(1000);
+                    break;
+                default:
+                    System.out.println("Opcion incorrecta. Intente nuevamente.");
             }
         } while (op != 2);
     }
 
-    static void menuEmpleado() {
-        byte op, op2, op3;
+    static void menuEmpleado(Scanner sc) {
+        byte op;
+        byte op2;
+        byte op3;
         do {
-            System.out.println("\n=== Menú de Empleados ===");
-            System.out.println("1 - Menú Encargado de Ventas");
-            System.out.println("2 - Menú Agente Administrativo");
+            System.out.println("\n **** Menu de Empleados ****");
+            System.out.println("1 - Menu Encargado de Ventas");
+            System.out.println("2 - Menu Agente Administrativo");
             System.out.println("3 - Salir");
-            System.out.print("Ingrese una opción: ");
+            System.out.print("Ingrese una opcion: ");
             op = sc.nextByte();
-            sc.nextLine();
+            sc.nextLine(); 
 
             switch (op) {
-                case 1 -> { // Encargado de Ventas
+                case 1: 
                     do {
                         System.out.println("\n--- Menú Encargado de Ventas ---");
                         System.out.println("1 - Mostrar Ventas");
                         System.out.println("2 - Verificar Stock");
-                        System.out.println("3 - Mostrar Total de Ventas");
+                        System.out.println("3 - Mostrar Total de ventas");
                         System.out.println("4 - Salir");
                         op2 = sc.nextByte();
                         sc.nextLine();
 
                         switch (op2) {
-                            case 1 -> CollectionFactura.mostrarFacturas();
-                            case 2 -> {
-                                System.out.print("Ingrese código del producto: ");
-                                int codigo = sc.nextInt();
-                                Producto prod = CollectionProducto.buscarProducts(codigo);
+                            case 1:
+                                System.out.println("Mostrar ventas");
+                                CollectionFactura.mostrarFacturas();
+                                delay(3000); 
+                                break;
+                            case 2:
+                                System.out.println("Verificar Stock");
+                                System.out.print("Ingrese el código del producto: ");
+                                int codigoProducto = sc.nextInt();
+                                sc.nextLine();
+                                Producto prod = CollectionProducto.buscarProductoPorCodigo(codigoProducto);
                                 if (prod != null) {
-                                    System.out.println("Stock disponible: " + CollectionStock.verificarStock(prod));
+                                    System.out.println("Stock disponible: " + prod.getStock());
                                 } else {
                                     System.out.println("Producto no encontrado.");
                                 }
-                            }
-                            case 3 -> System.out.println("Total de ventas: $" + CollectionFactura.calcularTotalVentas());
-                            case 4 -> System.out.println("Saliendo del Menú Encargado de Ventas...");
-                            default -> System.out.println("Opción incorrecta.");
+                                delay(2000);
+                                break;
+                            case 3:
+                                System.out.println("Mostrar Total de ventas");
+                                System.out.println("Total de ventas: $" + CollectionFactura.calcularTotalVentas());
+                                delay(2000);
+                                break;
+                            case 4:
+                                System.out.println("Saliendo del Menu Encargado de Ventas...");
+                                delay(1000);
+                                break;
+                            default:
+                                System.out.println("Opcion incorrecta.");
                         }
                     } while (op2 != 4);
-                }
+                    break;
 
-                case 2 -> { // Agente Administrativo
+                case 2:
                     do {
                         System.out.println("\n--- Menú Agente Administrativo ---");
                         System.out.println("1 - Dar Alta de Producto");
-                        System.out.println("2 - Identificar Clientes");
-                        System.out.println("3 - Realizar Venta");
+                        System.out.println("2 - Realizar Venta");
+                        System.out.println("3 - Registrar Nuevo Cliente");
                         System.out.println("4 - Salir");
                         op3 = sc.nextByte();
-                        sc.nextLine();
+                        sc.nextLine(); 
 
                         switch (op3) {
-                            case 1 -> { // Alta de producto
-                                System.out.print("Código: ");
-                                int cod = sc.nextInt();
-                                sc.nextLine();
-                                System.out.print("Descripción: ");
-                                String desc = sc.nextLine();
-                                System.out.print("Precio unitario: ");
+                            case 1: 
+                                System.out.println("Dar Alta de Producto");
+                                System.out.print("Ingrese código de producto: ");
+                                int codigoProducto = sc.nextInt(); sc.nextLine();
+                                System.out.print("Ingrese descripción: ");
+                                String descripcion = sc.nextLine();
+                                System.out.print("Ingrese precio unitario: ");
                                 double precio = sc.nextDouble();
-                                System.out.print("Descuento (%): ");
-                                int descPorc = sc.nextInt();
-                                System.out.print("Stock inicial: ");
-                                int stock = sc.nextInt();
+                                int descuento;
+                                do {
+                                    System.out.print("Ingrese descuento (0, 25 o 30): ");
+                                    descuento = sc.nextInt();
+                                } while (descuento != 0 && descuento != 25 && descuento != 30);
+                                System.out.print("Ingrese stock inicial: ");
+                                int stock = sc.nextInt(); sc.nextLine();
+                                Producto productoNuevo = new Producto(codigoProducto, descripcion, precio, descuento, stock);
+                                CollectionProducto.guardarProducto(productoNuevo);
 
-                                if (!(descPorc == 0 || descPorc == 25 || descPorc == 30)) {
-                                    System.out.println("Descuento inválido. Debe ser 0, 25 o 30.");
+                                System.out.println("Producto dado de alta correctamente.");
+                                delay(2000); 
+                                break;
+                                
+                            case 2: 
+                                System.out.println("Realizar Venta");
+                                System.out.print("Ingrese DNI del cliente: ");
+                                int dniCli = sc.nextInt(); sc.nextLine();
+                                Cliente cliente = CollectionCliente.buscarCliente(dniCli);
+
+                                if (cliente == null) {
+                                    System.out.println("Cliente no encontrado. Debe registrarlo primero (Opción 3).");
+                                    delay(1000);
                                     break;
                                 }
 
-                                Producto nuevo = new Producto(cod, desc, precio, descPorc, stock);
-                                CollectionProducto.guardarProducts(nuevo);
-                                CollectionStock.agregarProducto(nuevo, stock);
-
-                                System.out.println("Producto agregado con éxito.");
-                            }
-
-                            case 2 -> { //IDENTIFICAR CLIENTES
-                                System.out.print("\nIngrese CUIT del cliente: ");
-                                int cuit = sc.nextInt();
-                                sc.nextLine();
-
-                                Cliente cliente = CollectionCliente.buscarCliente(cuit);
-
-                                if (cliente != null) {
-                                    System.out.println("\nCliente encontrado:");
-                                    System.out.println(cliente.mostrarDatos());
-                                } else {
-                                    System.out.println("\nCliente no registrado. Seleccione tipo de cliente a registrar:");
-                                    System.out.println("1 - Cliente Mayor");
-                                    System.out.println("2 - Cliente Menor");
-                                    System.out.print("Ingrese una opción: ");
-                                    int tipo = sc.nextInt();
-                                    sc.nextLine();
-
-                                    System.out.print("Nombres: ");
-                                    String nombre = sc.nextLine();
-                                    System.out.print("Apellidos: ");
-                                    String apellido = sc.nextLine();
-                                    System.out.print("Dirección: ");
-                                    String direccion = sc.nextLine();
-
-                                    if (tipo == 1) {
-                                        System.out.print("Código de cliente mayorista: ");
-                                        int codigo = sc.nextInt();
-                                        sc.nextLine();
-
-                                        ClienteMayor nuevo = new ClienteMayor(nombre, apellido, direccion, cuit, codigo);
-                                        CollectionCliente.agregarCliente(nuevo);
-                                        System.out.println("\n Cliente MAYORISTA registrado:");
-                                        System.out.println(nuevo.mostrarDatos());
-
-                                    } else if (tipo == 2) {
-                                        System.out.print("Obra Social: ");
-                                        String obraSocial = sc.nextLine();
-
-                                        ClienteMenor nuevo = new ClienteMenor(nombre, apellido, direccion, cuit, obraSocial);
-                                        CollectionCliente.agregarCliente(nuevo);
-                                        System.out.println("\n Cliente MINORISTA registrado:");
-                                        System.out.println(nuevo.mostrarDatos());
-
-                                    } else {
-                                        System.out.println(" Opción inválida. No se registró el cliente.");
+                                Factura factura = new Factura(cliente);
+                                boolean seguirComprando = true;
+                                
+                                while (seguirComprando) {
+                                    System.out.print("Ingrese el código del producto: ");
+                                    int codigoProductoVenta = sc.nextInt();
+                                    Producto producto = CollectionProducto.buscarProductoPorCodigo(codigoProductoVenta);
+                                    
+                                    if (producto == null) {
+                                        System.out.println("Producto no encontrado.");
+                                        continue;
                                     }
-                                }
-                            }
 
-                            case 3 -> { //REALIZAR VENTA
-                                System.out.print("Ingrese CUIT del cliente: ");
-                                int cuitCli = sc.nextInt();
-                                sc.nextLine();
-                                Cliente cli = CollectionCliente.buscarCliente(cuitCli);
+                                    int cant;
+                                    if (cliente instanceof ClienteMayorista) {
+                                        System.out.print("Cliente mayorista: Ingrese cantidad de bultos (10u c/u): ");
+                                        int bultos = sc.nextInt(); sc.nextLine();
+                                        cant = bultos * 10;
+                                    } else {
+                                        System.out.print("Cantidad (unidades): ");
+                                        cant = sc.nextInt(); sc.nextLine();
+                                    }
 
-                                if (cli == null) {
-                                    System.out.println("Cliente no encontrado. Debe registrarlo primero.");
-                                    break;
+                                    if (producto.getStock() < cant) {
+                                        System.out.println("Stock insuficiente. Stock disponible: " + producto.getStock());
+                                    } else {
+                                        double precioUnitario = producto.getPrecio();
+                                        if (producto.getDescuento() > 0) {
+                                            precioUnitario = precioUnitario * (1 - (producto.getDescuento() / 100.0));
+                                        }
+
+                                        if (cliente instanceof ClienteMayorista) {
+                                            precioUnitario = precioUnitario / 2; 
+                                        } else if (cliente instanceof ClienteMinorista) {
+                                            ClienteMinorista cm = (ClienteMinorista) cliente;
+                                            precioUnitario = cm.aplicarDescuento(precioUnitario);
+                                        }
+                                        Detalle detalle = new Detalle(producto, cant, precioUnitario);
+                                        factura.agregarDetalle(detalle);
+                                        producto.actualizarStock(cant); 
+                                        System.out.println("Producto agregado.");
+                                    }
+
+                                    System.out.print("¿Desea agregar otro producto? (s/n): ");
+                                    String opcion = sc.next();
+                                    seguirComprando = opcion.equalsIgnoreCase("s");
                                 }
                                 
-                                System.out.print("Ingrese su nombre de empleado (Agente): ");
-                                String nombreEmp = sc.nextLine();
-                                Empleado emp = CollectionEmpleado.comprobarIngreso(nombreEmp);
-
-                                if (emp == null || !(emp instanceof AgenteAdmin)) {
-                                    System.out.println("Empleado no válido o no es Agente Admin.");
-                                    break;
-                                }
-
-                                Factura facturaNueva = new Factura(cli, emp);
-
-                                System.out.print("Código producto: ");
-                                int codProd = sc.nextInt();
-                                sc.nextLine();
-                                Producto producto = CollectionProducto.buscarProducts(codProd);
-
-                                if (producto == null) {
-                                    System.out.println("Producto no encontrado.");
-                                    break;
-                                }
-
-                                int cant;
-                                if (cli instanceof ClienteMayor) {
-                                    System.out.print("Cliente mayor: ingrese cantidad de bultos (1 bulto = 10 unidades): ");
-                                    int bultos = sc.nextInt();
-                                    sc.nextLine();
-                                    cant = bultos * 10;
-                                } else {
-                                    System.out.print("Cantidad (unidades): ");
-                                    cant = sc.nextInt();
-                                    sc.nextLine();
-                                }
-
-                                if (CollectionStock.verificarStock(producto) < cant) {
-                                    System.out.println("Stock insuficiente.");
-                                    break;
-                                }
-
-                                LineaFactura linea = new LineaFactura(producto, cant);
-                                facturaNueva.agregarLinea(linea);
-                                CollectionFactura.guardarFactura(facturaNueva);
-                                CollectionStock.actualizarStock(producto, cant);
-
+                                CollectionFactura.guardarFactura(factura);
                                 System.out.println("Venta realizada:");
-                                facturaNueva.mostrarFactura();
-                            }
+                                factura.mostrarFactura();
+                                delay(3000); 
+                                break;
+                                
+                            case 3: // Registrar Cliente
+                                System.out.println("\nRegistrar Nuevo Cliente");
+                                System.out.print("Ingrese DNI: ");
+                                int dni = sc.nextInt(); sc.nextLine();
+                                
+                                if(CollectionCliente.buscarCliente(dni) != null) {
+                                    System.out.println("Error: Ya existe un cliente con ese DNI.");
+                                    delay(1000);
+                                    break;
+                                }
 
-                            case 4 -> System.out.println("Saliendo del Menú Agente Administrativo...");
-                            default -> System.out.println("Opción incorrecta.");
+                                System.out.print("Nombre: ");
+                                String nombre = sc.nextLine();
+                                System.out.print("Apellido: ");
+                                String apellido = sc.nextLine();
+                                System.out.print("Dirección: ");
+                                String direccion = sc.nextLine();
+                                
+                                System.out.println("Tipo de cliente: 1- Mayorista, 2- Minorista");
+                                int tipo = sc.nextInt(); sc.nextLine();
+                                
+                                if (tipo == 1) {
+                                    System.out.print("Código de cliente mayorista: ");
+                                    int codigo = sc.nextInt(); sc.nextLine();
+                                    ClienteMayorista nuevo = new ClienteMayorista(nombre, apellido, direccion, dni, codigo);
+                                    CollectionCliente.guardarCliente(nuevo);
+                                    System.out.println("Cliente MAYORISTA registrado.");
+                                } else if (tipo == 2) {
+                                    System.out.print("Obra Social: ");
+                                    String obraSocial = sc.nextLine();
+                                    ClienteMinorista nuevo = new ClienteMinorista(nombre, apellido, direccion, dni, obraSocial);
+                                    CollectionCliente.guardarCliente(nuevo);
+                                    System.out.println("Cliente MINORISTA registrado.");
+                                } else {
+                                    System.out.println("Opción inválida.");
+                                }
+                                delay(1000);
+                                break;
+                                
+                            case 4:
+                                System.out.println("Saliendo del Menu Agente Administrativo...");
+                                delay(1000); 
+                                break;
+                            default:
+                                System.out.println("Opcion incorrecta.");
                         }
                     } while (op3 != 4);
-                }
-
-                case 3 -> System.out.println("Saliendo del Menú de Empleados...");
-                default -> System.out.println("Opción incorrecta.");
+                    break;
+                case 3:
+                    System.out.println("Saliendo del Menu de Empleados...");
+                    delay(1000);
+                    break;
+                default:
+                    System.out.println("Opcion incorrecta.");
             }
         } while (op != 3);
     }
 
     public static void main(String[] args) {
-
-        CollectionCliente.precargarClientes();
-        CollectionProducto.precargarProducts(); 
-
+        Scanner sc = new Scanner(System.in);
         byte op;
+        CollectionCliente.precargarCliente();
+        CollectionEmpleado.precargarEmpleado();
+        CollectionProducto.precargarProducto();
+
         do {
-            System.out.println("\n **** Menú de Opciones ****");
-            System.out.println("1 - Menú de Clientes");
-            System.out.println("2 - Menú de Empleados");
+            System.out.println("\n **** Menu de Opciones ****");
+            System.out.println("1 - Menu de Clientes");
+            System.out.println("2 - Menu de Empleados");
             System.out.println("3 - Salir");
+            System.out.print("Ingrese una opcion: ");
             op = sc.nextByte();
-            sc.nextLine();
+            sc.nextLine(); 
 
             switch (op) {
-                case 1 -> menuCliente();
-                case 2 -> menuEmpleado();
-                case 3 -> System.out.println("Saliendo del programa...");
-                default -> System.out.println("Opción incorrecta.");
+                case 1:
+                    menuCliente(sc); 
+                    break;
+                case 2:
+                    menuEmpleado(sc); 
+                    break;
+                case 3:
+                    System.out.println("Saliendo del programa...");
+                    break;
+                default:
+                    System.out.println("Opcion incorrecta.");
             }
         } while (op != 3);
+
+        sc.close();
+    }
+    public static void delay(int milisegundos) {
+        try {
+            Thread.sleep(milisegundos);
+        } catch (InterruptedException e) {
+            Thread.currentThread().interrupt();
+        }
     }
 }
