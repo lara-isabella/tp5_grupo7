@@ -1,46 +1,29 @@
 package ar.edu.unju.escmi.tp5.dominio;
 
 public class Detalle {
-    private int cantidad;
+
     private Producto producto;
-    private double precioCalculadoConDescuento;
+    private int cantidad;
+    private double precioUnitario; 
+    private double subtotal;
 
-    public Detalle() {
-    }
-
-    public Detalle(Producto producto, int cantidad, double precioCalculadoConDescuento) {
-        this.cantidad = cantidad;
+    public Detalle(Producto producto, int cantidad, double precioUnitario) {
         this.producto = producto;
-        this.precioCalculadoConDescuento = precioCalculadoConDescuento;
-    }
-
-    public Producto getProducto() {
-        return producto;
-    }
-
-    public void setProducto(Producto producto) {
-        this.producto = producto;
-    }
-    
-    public int getCantidad() {
-        return cantidad;
-    }
-
-    public void setCantidad(int cantidad) {
         this.cantidad = cantidad;
+        this.precioUnitario = precioUnitario;
+        this.subtotal = calcularSubtotal();
     }
 
-    public double calcularImporte() {
-        return cantidad * precioCalculadoConDescuento;
+    public double calcularSubtotal() {
+        return this.cantidad * this.precioUnitario;
     }
-    
-    public double getPrecioCalculadoConDescuento() {
-        return precioCalculadoConDescuento;
-    }
-    
-    public void mostrarLinea() {
-        System.out.println("Producto: " + producto.getDescripcion() +
-                           " | Cantidad: " + cantidad +
-                           " | Subtotal: $" + String.format("%.2f", calcularImporte()));
-    }
+
+    public Producto getProducto() { return producto; }
+    public void setProducto(Producto producto) { this.producto = producto; }
+    public int getCantidad() { return cantidad; }
+    public void setCantidad(int cantidad) { this.cantidad = cantidad; }
+    public double getPrecioUnitario() { return precioUnitario; }
+    public void setPrecioUnitario(double precioUnitario) { this.precioUnitario = precioUnitario; }
+    public double getSubtotal() { return subtotal; }
+    public void setSubtotal(double subtotal) { this.subtotal = subtotal; }
 }

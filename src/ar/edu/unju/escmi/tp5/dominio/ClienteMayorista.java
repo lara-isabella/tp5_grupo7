@@ -1,35 +1,24 @@
 package ar.edu.unju.escmi.tp5.dominio;
 
+
 public class ClienteMayorista extends Cliente {
 
-    private int codigo;
+    private int codigoCliente;
 
     public ClienteMayorista() {
+        super();
     }
 
-    public ClienteMayorista(String nombre, String apellido, String direccion, int dni, int codigo) {
-        super(nombre, apellido, direccion, dni); 
-        this.codigo = codigo;
-    }
-
-    public int getCodigo() { return codigo; }
-    public void setCodigo(int codigo) { this.codigo = codigo; }
-
-    @Override
-    public String getTipoCliente() {
-        return "Mayorista";
+    public ClienteMayorista(String nombre, String apellido, String direccion, int dni, int codigoCliente) {
+        super(nombre, apellido, direccion, dni);
+        this.codigoCliente = codigoCliente;
     }
 
     @Override
-    public String mostrarDatos() {
-        return "Cliente " + getTipoCliente() + " DNI: " + getDni() +
-                " | Nombre: " + getNombre() + " " + getApellido() +
-                " | Dirección: " + getDireccion() +
-                " | Código: " + codigo;
+    public double aplicarDescuento(double precio) {  
+        return precio; 
     }
 
-    @Override
-    public String toString() {
-        return mostrarDatos();
-    }
+    public int getCodigoCliente() { return codigoCliente; }
+    public void setCodigoCliente(int codigoCliente) { this.codigoCliente = codigoCliente; }
 }
