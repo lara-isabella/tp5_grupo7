@@ -1,47 +1,45 @@
 package ar.edu.unju.escmi.tp5.dominio;
 
 public class Producto {
-    // Atributos
-    private int codigoProducto;
+    
+    private int codigoProducts;
     private String descripcion;
-    private double precioUnitario;
-    private int descuento; // Puede ser 0, 25 o 30
+    private double precioUnit;
+    private int descuento;
     private int stock;
 
-    // Constructores
     public Producto() {}
 
-    public Producto(int codigoProducto, String descripcion, double precioUnitario, int descuento, int stock) {
-        this.codigoProducto = codigoProducto;
+    public Producto(int codigoProducts, String descripcion, double precioUnit, int descuento, int stock) {
+        this.codigoProducts = codigoProducts;
         this.descripcion = descripcion;
-        this.precioUnitario = precioUnitario;
+        this.precioUnit = precioUnit;
         this.descuento = descuento;
         this.stock = stock;
     }
 
-    // Métodos
-    public void mostrarProducto() {
-        System.out.println("Código: " + codigoProducto +
+    public void mostrarProducts() {
+        System.out.println("Código: " + codigoProducts +
                            " | Descripción: " + descripcion +
-                           " | Precio: $" + precioUnitario +
+                           " | Precio: $" + precioUnit +
                            " | Descuento: " + descuento + "%" +
                            " | Stock: " + stock);
     }
 
-public void actualizarStock(int cantidadVendida) {
-    if (cantidadVendida <= stock) {
-        stock -= cantidadVendida; // restamos lo vendido al stock actual
-    } else {
-        System.out.println("No hay suficiente stock para el producto: " + descripcion);
+    public void reducirStock(int cantidadVendida) {
+        if (cantidadVendida <= stock) {
+            stock -= cantidadVendida;
+        } else {
+            System.out.println("No hay suficiente stock para el producto: " + descripcion);
+        }
     }
-}
-    // Getters y Setter
-    public int getCodigoProducto() { return codigoProducto; }
-    public void setCodigoProducto(int codigoProducto) { this.codigoProducto = codigoProducto; }
+
+    public int getCodigoProducts() { return codigoProducts; }
+    public void setCodigoProducts(int codigoProducts) { this.codigoProducts = codigoProducts; }
     public String getDescripcion() { return descripcion; }
     public void setDescripcion(String descripcion) { this.descripcion = descripcion; }
-    public double getPrecioUnitario() { return precioUnitario; }
-    public void setPrecioUnitario(double precioUnitario) { this.precioUnitario = precioUnitario; }
+    public double getPrecioUnit() { return precioUnit; }
+    public void setPrecioUnit(double precioUnit) { this.precioUnit = precioUnit; }
     public int getDescuento() { return descuento; }
     public void setDescuento(int descuento) { this.descuento = descuento; }
     public int getStock() { return stock; }

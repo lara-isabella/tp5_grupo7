@@ -1,29 +1,30 @@
 package ar.edu.unju.escmi.tp5.dominio;
 
 public abstract class Empleado {
-    private String nombre;
+    private String nombres;
     private String apellido;
     private String direccion;
-    private int codigoEmpleado;
+    private int codEmpleado;
 
-    public Empleado(String nombre, String apellido, String direccion) {
-        this.nombre = nombre;
+    public Empleado(String nombres, String apellido, String direccion) {
+        this.nombres = nombres;
         this.apellido = apellido;
         this.direccion = direccion;
     }
 
-    public Empleado(String nombre, String apellido, String direccion, int codigoEmpleado) {
-        this(nombre, apellido, direccion);
-        this.codigoEmpleado = codigoEmpleado;
+    public Empleado(String nombres, String apellido, String direccion, int codEmpleado) {
+        this(nombres, apellido, direccion);
+        this.codEmpleado = codEmpleado;
     }
 
     public abstract void mostrarMenu();
 
-    public String getNombre() { return nombre; }
+    public String getNombres() { return nombres; }
     public String getApellido() { return apellido; }
     public String getDireccion() { return direccion; }
-    public int getCodigoEmpleado() { return codigoEmpleado; }
+    public int getCodEmpleado() { return codEmpleado; }
 
-    // Devuelve el tipo de empleado (por ejemplo "AgenteAdmin" o "EncargadoVentas")
-    public String getTipoEmpleado() { return this.getClass().getSimpleName(); }
+    public String getTipoEmpleado() { 
+        return this.getClass().getSimpleName();
+     }
 }
