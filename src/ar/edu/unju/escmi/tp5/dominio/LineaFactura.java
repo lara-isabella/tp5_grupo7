@@ -1,25 +1,33 @@
 package ar.edu.unju.escmi.tp5.dominio;
 
 public class LineaFactura {
-    private Producto producto;
+    // Atributos según el diagrama
     private int cantidad;
-    private double precioUnitario;
-    private double subtotal;
+    private Producto producto;
 
+    // Constructor
     public LineaFactura(Producto producto, int cantidad) {
         this.producto = producto;
         this.cantidad = cantidad;
-        this.precioUnitario = producto.getPrecioConDescuento();
-        this.subtotal = this.precioUnitario * cantidad;
     }
 
-    // Calcula y devuelve el subtotal de la línea (unitario * cantidad)
+    // Método para calcular el subtotal
     public double calcularSubtotal() {
-        return this.subtotal;
+        double precioConDescuento = producto.getPrecioUnitario() * (1 - producto.getDescuento() / 100.0);
+        return precioConDescuento * cantidad;
     }
+
+    // Getters y Setters
+    public int getCantidad() { return cantidad; }
+    public void setCantidad(int cantidad) { this.cantidad = cantidad; }
 
     public Producto getProducto() { return producto; }
-    public int getCantidad() { return cantidad; }
-    public double getPrecioUnitario() { return precioUnitario; }
-    public double getSubtotal() { return subtotal; }
+    public void setProducto(Producto producto) { this.producto = producto; }
+
+    // Método auxiliar para mostrar info (no está en el UML pero puede servir)
+    public void mostrarLinea() {
+        System.out.println("Producto: " + producto.getDescripcion() +
+                           " | Cantidad: " + cantidad +
+                           " | Subtotal: $" + String.format("%.2f", calcularSubtotal()));
+    }
 }
