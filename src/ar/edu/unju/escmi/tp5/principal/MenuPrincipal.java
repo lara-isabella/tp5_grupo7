@@ -8,7 +8,6 @@ public class MenuPrincipal {
 
     static Scanner sc = new Scanner(System.in);
 
-    // --- Menú Clientes ---
     static void menuCliente() {
         byte op;
         do {
@@ -36,7 +35,6 @@ public class MenuPrincipal {
         } while (op != 2);
     }
 
-    // --- Menú Empleados ---
     static void menuEmpleado() {
         byte op, op2, op3;
         do {
@@ -64,7 +62,7 @@ public class MenuPrincipal {
                             case 2 -> {
                                 System.out.print("Ingrese código del producto: ");
                                 int codigo = sc.nextInt();
-                                Producto prod = CollectionProducto.buscarProducto(codigo);
+                                Producto prod = CollectionProducto.buscarProducts(codigo);
                                 if (prod != null) {
                                     System.out.println("Stock disponible: " + CollectionStock.verificarStock(prod));
                                 } else {
@@ -108,18 +106,18 @@ public class MenuPrincipal {
                                 }
 
                                 Producto nuevo = new Producto(cod, desc, precio, descPorc, stock);
-                                CollectionProducto.guardarProducto(nuevo);
+                                CollectionProducto.guardarProducts(nuevo);
                                 CollectionStock.agregarProducto(nuevo, stock);
 
                                 System.out.println("Producto agregado con éxito.");
                             }
 
                             case 2 -> { //IDENTIFICAR CLIENTES
-                                System.out.print("\nIngrese DNI del cliente: ");
-                                int dni = sc.nextInt();
+                                System.out.print("\nIngrese CUIT del cliente: ");
+                                int cuit = sc.nextInt();
                                 sc.nextLine();
 
-                                Cliente cliente = CollectionCliente.buscarCliente(dni);
+                                Cliente cliente = CollectionCliente.buscarCliente(cuit);
 
                                 if (cliente != null) {
                                     System.out.println("\nCliente encontrado:");
@@ -132,9 +130,9 @@ public class MenuPrincipal {
                                     int tipo = sc.nextInt();
                                     sc.nextLine();
 
-                                    System.out.print("Nombre: ");
+                                    System.out.print("Nombres: ");
                                     String nombre = sc.nextLine();
-                                    System.out.print("Apellido: ");
+                                    System.out.print("Apellidos: ");
                                     String apellido = sc.nextLine();
                                     System.out.print("Dirección: ");
                                     String direccion = sc.nextLine();
@@ -144,7 +142,7 @@ public class MenuPrincipal {
                                         int codigo = sc.nextInt();
                                         sc.nextLine();
 
-                                        ClienteMayor nuevo = new ClienteMayor(nombre, apellido, direccion, dni, codigo);
+                                        ClienteMayor nuevo = new ClienteMayor(nombre, apellido, direccion, cuit, codigo);
                                         CollectionCliente.agregarCliente(nuevo);
                                         System.out.println("\n Cliente MAYORISTA registrado:");
                                         System.out.println(nuevo.mostrarDatos());
@@ -153,7 +151,7 @@ public class MenuPrincipal {
                                         System.out.print("Obra Social: ");
                                         String obraSocial = sc.nextLine();
 
-                                        ClienteMenor nuevo = new ClienteMenor(nombre, apellido, direccion, dni, obraSocial);
+                                        ClienteMenor nuevo = new ClienteMenor(nombre, apellido, direccion, cuit, obraSocial);
                                         CollectionCliente.agregarCliente(nuevo);
                                         System.out.println("\n Cliente MINORISTA registrado:");
                                         System.out.println(nuevo.mostrarDatos());
@@ -165,22 +163,31 @@ public class MenuPrincipal {
                             }
 
                             case 3 -> { //REALIZAR VENTA
-                                System.out.print("Ingrese DNI del cliente: ");
-                                int dniCli = sc.nextInt();
+                                System.out.print("Ingrese CUIT del cliente: ");
+                                int cuitCli = sc.nextInt();
                                 sc.nextLine();
-                                Cliente cli = CollectionCliente.buscarCliente(dniCli);
+                                Cliente cli = CollectionCliente.buscarCliente(cuitCli);
 
                                 if (cli == null) {
                                     System.out.println("Cliente no encontrado. Debe registrarlo primero.");
                                     break;
                                 }
+                                
+                                System.out.print("Ingrese su nombre de empleado (Agente): ");
+                                String nombreEmp = sc.nextLine();
+                                Empleado emp = CollectionEmpleado.comprobarIngreso(nombreEmp);
 
-                                Factura facturaNueva = new Factura(cli);
+                                if (emp == null || !(emp instanceof AgenteAdmin)) {
+                                    System.out.println("Empleado no válido o no es Agente Admin.");
+                                    break;
+                                }
+
+                                Factura facturaNueva = new Factura(cli, emp);
 
                                 System.out.print("Código producto: ");
                                 int codProd = sc.nextInt();
                                 sc.nextLine();
-                                Producto producto = CollectionProducto.buscarProducto(codProd);
+                                Producto producto = CollectionProducto.buscarProducts(codProd);
 
                                 if (producto == null) {
                                     System.out.println("Producto no encontrado.");
@@ -225,11 +232,10 @@ public class MenuPrincipal {
         } while (op != 3);
     }
 
-    // --- Main ---
     public static void main(String[] args) {
 
-        //Se cargan los clientes precargados al iniciar el programa
         CollectionCliente.precargarClientes();
+        CollectionProducto.precargarProducts(); 
 
         byte op;
         do {

@@ -9,19 +9,18 @@ import ar.edu.unju.escmi.tp5.dominio.ClienteMenor;
 
 public class CollectionCliente {
 
-    private static Map<Integer, Cliente> clientes = new HashMap<>();
+    public static Map<Integer, Cliente> clientes = new HashMap<>();
 
-    public static Cliente buscarCliente(int codigoCliente) {
-        return clientes.get(codigoCliente);
+    public static Cliente buscarCliente(int cuit) {
+        return clientes.get(cuit);
     }
 
     public static void agregarCliente(Cliente cliente) {
-        clientes.put(cliente.getDni(), cliente);
+        clientes.put(cliente.getCuit(), cliente);
     }
 
     public static void mostrarClientes() {
         for (Cliente cliente : clientes.values()) {
-            // mostrarDatos debe devolver un String
             System.out.println(cliente.mostrarDatos());
         }
     }

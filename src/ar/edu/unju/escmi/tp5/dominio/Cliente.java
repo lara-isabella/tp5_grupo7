@@ -1,59 +1,63 @@
 package ar.edu.unju.escmi.tp5.dominio;
 
 import ar.edu.unju.escmi.tp5.collections.CollectionFactura;
-import ar.edu.unju.escmi.tp5.dominio.Factura;
 
 public abstract class Cliente {
     
-    protected int dni;
-    protected String nombre;
-    protected String apellido;
-    protected String direccion;
+    private String nombres;
+    private String apellidos;
+    private String direccion;
+    private int cuit;
 
     public Cliente() {
     }
 
-    public Cliente(String nombre, String apellido, String direccion, int dni) {
-        this.nombre = nombre;
-        this.apellido = apellido;
+    public Cliente(String nombres, String apellidos, String direccion, int cuit) {
+        this.nombres = nombres;
+        this.apellidos = apellidos;
         this.direccion = direccion;
-        this.dni = dni;
+        this.cuit = cuit;
     }
 
-    public int getDni() {
-        return dni;
+    public int getCuit() {
+        return cuit;
     }
 
-    public void setDni(int dni) {
-        this.dni = dni;
+    public void setCuit(int cuit) {
+        this.cuit = cuit;
     }
 
-    public String getNombre() {
-        return nombre;
+    public String getNombres() {
+        return nombres;
     }
 
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
+    public void setNombres(String nombres) {
+        this.nombres = nombres;
     }
 
-    public String getApellido() {
-        return apellido;
+    public String getApellidos() {
+        return apellidos;
     }
 
-    public void setApellido(String apellido) {
-        this.apellido = apellido;
+    public void setApellidos(String apellidos) {
+        this.apellidos = apellidos;
     }
 
-    public String getdireccion() {
+    public String getDireccion() {
         return direccion;
     }
 
-    public void setdireccion(String direccion) {
+    public void setDireccion(String direccion) {
         this.direccion = direccion;
     }
 
     public abstract String getTipoCliente();
     public abstract String mostrarDatos();
+
+    public String getFactCliente() {
+        // Método requerido por UML
+        return "Datos de factura del cliente";
+    }
 
     public static void buscarFactura(int numeroFactura) {
         Factura factura = CollectionFactura.buscarFactura(numeroFactura);

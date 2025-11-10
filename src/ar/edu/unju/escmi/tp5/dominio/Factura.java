@@ -6,42 +6,36 @@ import java.util.List;
 
 public class Factura {
 
-    // Atributos
-    private static int contador = 0; // contador global para numerar facturas automáticamente
-    private int numero;
+    private static int contador = 0;
+    private int nroFactura;
     private LocalDate fecha;
     private double total;
 
-    // Relaciones
-    private Cliente cliente; // se asocia con un cliente (según el diagrama)
-    private List<LineaFactura> lineas; // composición con LineaFactura
+    private Cliente cliente;
+    private Empleado empleado; 
+    private List<LineaFactura> lineas;
 
-    // ============================
-    // CONSTRUCTORES
-    // ============================
-    public Factura(Cliente cliente) {
-        this.numero = ++contador; // genera número único automáticamente
+    public Factura(Cliente cliente, Empleado empleado) {
+        this.nroFactura = ++contador;
         this.fecha = LocalDate.now();
         this.total = 0;
         this.cliente = cliente;
+        this.empleado = empleado;
         this.lineas = new ArrayList<>();
     }
 
-    // Constructor alternativo si necesitás crearla con número específico
-    public Factura(int numero, Cliente cliente) {
-        this.numero = numero;
+    public Factura(int nroFactura, Cliente cliente, Empleado empleado) {
+        this.nroFactura = nroFactura;
         this.fecha = LocalDate.now();
         this.total = 0;
         this.cliente = cliente;
+        this.empleado = empleado;
         this.lineas = new ArrayList<>();
     }
 
-    // ============================
-    // MÉTODOS
-    // ============================
     public void agregarLinea(LineaFactura linea) {
         lineas.add(linea);
-        calcularTotal(); // recalcula cada vez que se agrega una línea
+        calcularTotal();
     }
 
     public double calcularTotal() {
@@ -54,9 +48,10 @@ public class Factura {
 
     public void mostrarFactura() {
         System.out.println("=========================================");
-        System.out.println("Factura N°: " + numero);
+        System.out.println("Factura N°: " + nroFactura);
         System.out.println("Fecha: " + fecha);
-        System.out.println("Cliente: " + cliente.getNombre());
+        System.out.println("Cliente: " + cliente.getNombres() + " " + cliente.getApellidos());
+        System.out.println("Atendido por: " + empleado.getNombres());
         System.out.println("Detalles:");
         for (LineaFactura l : lineas) {
             l.mostrarLinea();
@@ -66,16 +61,15 @@ public class Factura {
         System.out.println("=========================================");
     }
 
-    // ============================
-    // GETTERS Y SETTERS
-    // ============================
-    public int getNumero() { return numero; }
+    public int getNroFactura() { return nroFactura; }
 
     public LocalDate getFecha() { return fecha; }
 
     public double getTotal() { return total; }
 
     public Cliente getCliente() { return cliente; }
+    
+    public Empleado getEmpleado() { return empleado; }
 
     public List<LineaFactura> getLineas() { return lineas; }
 }
