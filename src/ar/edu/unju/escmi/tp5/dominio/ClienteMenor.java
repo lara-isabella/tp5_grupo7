@@ -1,39 +1,61 @@
 package ar.edu.unju.escmi.tp5.dominio;
 
 public class ClienteMenor extends Cliente {
+
     private String obraSocial;
 
+    //Constructor vacío
     public ClienteMenor() {
-        
     }
 
+    //Constructor adaptado al padre
     public ClienteMenor(String nombre, String apellido, String direccion, int dni, String obraSocial) {
         super(nombre, apellido, direccion, dni);
         this.obraSocial = obraSocial;
     }
 
-    public String getObraSocial() { return obraSocial; }
-    public void setObraSocial(String obraSocial) { this.obraSocial = obraSocial; }
+    public String getObraSocial() {
+        return obraSocial;
+    }
 
+    public void setObraSocial(String obraSocial) {
+        this.obraSocial = obraSocial;
+    }
+
+    //Método del UML
+    @Override
     public String getTipoCliente() {
-        return "Menor";
+        return "Minorista";
     }
 
-    public double aplicarDescuento(double total) {
-        // Aplica 10% solo si la obra social es PAMI y hay DNI válido
-        if (this.obraSocial != null && this.obraSocial.equalsIgnoreCase("PAMI") && this.dni > 0) {
-            return total * 0.90;
+    //Método del UML
+    @Override
+    public String mostrarDatos() {
+        return "Cliente " + getTipoCliente() + " ➤ DNI: " + dni +
+                " | Nombre: " + nombre + " " + apellido +
+                " | Dirección: " + direccion +
+                " | Obra Social: " + obraSocial;
+    }
+
+    //Mantiene tu lógica de descuento
+    public double aplicarDescuento(double precio) {
+        if (this.dni != 0) {
+            if (this.obraSocial.equalsIgnoreCase("PAMI")) {
+                System.out.println("El cliente tiene un descuento del 10% en la compra.");
+                return precio * 0.9;
+            } else {
+                System.out.println("El cliente no tiene descuento.");
+                return precio;
+            }
+        } else {
+            System.out.println("El cliente no está identificado.");
+            return precio;
         }
-        return total;
     }
 
-    public void mostrarDatos() {
-        System.out.println("Cliente Menor (Código: " + getCodigoCliente() + "):");
-        System.out.println("Nombre: " + nombre + " " + apellido);
-        System.out.println("DNI: " + dni);
-        System.out.println("Dirección: " + direccion);
-        System.out.println("Obra Social: " + obraSocial);
-        
+    //toString reutiliza mostrarDatos()
+    @Override
+    public String toString() {
+        return mostrarDatos();
     }
-
 }

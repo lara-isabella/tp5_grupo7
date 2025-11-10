@@ -1,39 +1,35 @@
 package ar.edu.unju.escmi.tp5.collections;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashMap;
+import java.util.Map;
+
 import ar.edu.unju.escmi.tp5.dominio.Cliente;
+import ar.edu.unju.escmi.tp5.dominio.ClienteMayor;
+import ar.edu.unju.escmi.tp5.dominio.ClienteMenor;
 
 public class CollectionCliente {
-    public static List<Cliente> clientes = new ArrayList<>();
+
+    private static Map<Integer, Cliente> clientes = new HashMap<>();
+
+    public static Cliente buscarCliente(int codigoCliente) {
+        return clientes.get(codigoCliente);
+    }
 
     public static void agregarCliente(Cliente cliente) {
-        clientes.add(cliente);
-    }
-
-    // Buscar cliente por código (nuevo comportamiento solicitado)
-    public static Cliente buscarCliente(int codigoCliente) {
-        for (Cliente c : clientes) {
-            if (c.getCodigoCliente() == codigoCliente) {
-                return c;
-            }
-        }
-        return null;
-    }
-
-    // Mantener búsqueda por nombre si se necesita en otros lugares
-    public static Cliente buscarCliente(String nombre) {
-        for (Cliente c : clientes) {
-            if (c.getNombre() != null && c.getNombre().equalsIgnoreCase(nombre)) {
-                return c;
-            }
-        }
-        return null;
+        clientes.put(cliente.getDni(), cliente);
     }
 
     public static void mostrarClientes() {
-        for (Cliente c : clientes) {
-            System.out.println("- " + c.getNombre() + " (Código: " + c.getCodigoCliente() + ")");
+        for (Cliente cliente : clientes.values()) {
+            // mostrarDatos debe devolver un String
+            System.out.println(cliente.mostrarDatos());
         }
+    }
+
+    public static void precargarClientes() {
+        clientes.put(3105,
+                new ClienteMayor("Luciana", "Mamani", "Barrio Alto Comedero 123", 3105, 800));
+        clientes.put(7821,
+                new ClienteMenor("Thiago", "Quispe", "Calle San Martín 456", 7821, "OSDE"));
     }
 }
