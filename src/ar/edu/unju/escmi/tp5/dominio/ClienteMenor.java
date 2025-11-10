@@ -22,22 +22,20 @@ public class ClienteMenor extends Cliente {
         this.obraSocial = obraSocial;
     }
 
-    //Método del UML
+   
     @Override
     public String getTipoCliente() {
         return "Minorista";
     }
 
-    //Método del UML
     @Override
     public String mostrarDatos() {
-        return "Cliente " + getTipoCliente() + " ➤ DNI: " + dni +
+        return "Cliente " + getTipoCliente() + " DNI: " + dni +
                 " | Nombre: " + nombre + " " + apellido +
                 " | Dirección: " + direccion +
                 " | Obra Social: " + obraSocial;
     }
 
-    //Mantiene tu lógica de descuento
     public double aplicarDescuento(double precio) {
         if (this.dni != 0) {
             if (this.obraSocial.equalsIgnoreCase("PAMI")) {
@@ -53,7 +51,6 @@ public class ClienteMenor extends Cliente {
         }
     }
 
-    //toString reutiliza mostrarDatos()
     @Override
     public String toString() {
         return mostrarDatos();

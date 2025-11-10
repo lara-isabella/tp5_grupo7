@@ -8,7 +8,7 @@ public class ClienteMayor extends Cliente {
     public ClienteMayor() {
     }
 
-    // ✅ Constructor adaptado al padre: (nombre, apellido, direccion, dni) + codigo propio
+    //Constructor adaptado al padre
     public ClienteMayor(String nombre, String apellido, String direccion, int dni, int codigo) {
         super(nombre, apellido, direccion, dni);
         this.codigo = codigo;
@@ -22,22 +22,20 @@ public class ClienteMayor extends Cliente {
         this.codigo = codigo;
     }
 
-    // ✅ Método del UML
+
     @Override
     public String getTipoCliente() {
         return "Mayorista";
     }
 
-    // ✅ Método del UML
     @Override
     public String mostrarDatos() {
-        return "Cliente " + getTipoCliente() + " ➤ DNI: " + dni +
+        return "Cliente " + getTipoCliente() + " DNI: " + dni +
                 " | Nombre: " + nombre + " " + apellido +
                 " | Dirección: " + direccion +
                 " | Código: " + codigo;
     }
 
-    // ✅ toString reutiliza mostrarDatos()
     @Override
     public String toString() {
         return mostrarDatos();
