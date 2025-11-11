@@ -5,7 +5,6 @@ import java.util.Map;
 import ar.edu.unju.escmi.tp5.dominio.Producto;
 
 public class CollectionProducto {
-
     public static Map<Integer, Producto> productos = new HashMap<>();
 
     public static void guardarProducto(Producto producto) {
@@ -17,11 +16,11 @@ public class CollectionProducto {
     }
 
     public static void precargarProducto() {
-        if (productos.isEmpty()) {
-            productos.put(1001, new Producto(1001, "Fideo Knorr Spaghetti x 500 gr.", 1200.00, 0, 5000));
-            productos.put(1002, new Producto(1002, "Arroz Gallo x 1kg", 900.00, 25, 3000));
-            productos.put(1003, new Producto(1003, "Aceite 1L", 3500.00, 30, 1500));
-            productos.put(1004, new Producto(1004, "Pan de molde 500g", 650.00, 0, 800));
-        }
+        productos.put(100, new Producto(100, "Papas Lays 50g", 2000.0, 0));
+        productos.put(101, new Producto(101, "Azúcar Ledesma 1kg", 1400.0, 0));
+        productos.put(102, new Producto(102, "Aceite Cocinero 1lt", 3000.0, 0));
+        productos.put(103, new Producto(103, "Queso Tybo en fetas", 2600.0, 15));
+        productos.put(104, new Producto(104, "CocaCola 375ml", 1500.0, 0));
+        productos.put(105, new Producto(105, "Fideo Moñito Lucchetti", 1500.0, 30));
     }
 }

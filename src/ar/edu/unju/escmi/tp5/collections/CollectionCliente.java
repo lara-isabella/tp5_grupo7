@@ -8,7 +8,6 @@ import ar.edu.unju.escmi.tp5.dominio.ClienteMayorista;
 import ar.edu.unju.escmi.tp5.dominio.ClienteMinorista;
 
 public class CollectionCliente {
-
     public static Map<Integer, Cliente> clientes = new HashMap<>();
 
     public static void guardarCliente(Cliente cliente) {
@@ -21,8 +20,8 @@ public class CollectionCliente {
 
     public static void precargarCliente() {
         if (clientes.isEmpty()) {
-            clientes.put(40123456, new ClienteMinorista("Juan", "Perez", "Av. Siempre Viva 123", 40123456, "Osplad"));
-            clientes.put(30987654, new ClienteMayorista("Maria", "Lopez", "Calle Falsa 456", 30987654, 500));
+            clientes.put(123, new ClienteMinorista("Lautaro", "Cari", "El Cardenal 528", 47545205, "Galeno"));
+            clientes.put(321, new ClienteMayorista("Joaquin", "Sarapura", "Los Manantiales 891", 47545211, 100));
         }
     }
 }

@@ -2,27 +2,19 @@ package ar.edu.unju.escmi.tp5.collections;
 
 import java.util.HashMap;
 import java.util.Map;
-
-import ar.edu.unju.escmi.tp5.dominio.AgenteAdministrativo;
 import ar.edu.unju.escmi.tp5.dominio.Empleado;
 import ar.edu.unju.escmi.tp5.dominio.EncargadoDeVentas;
+import ar.edu.unju.escmi.tp5.dominio.AgenteAdministrativo;
 
 public class CollectionEmpleado {
-
     public static Map<Integer, Empleado> empleados = new HashMap<>();
 
     public static void guardarEmpleado(Empleado empleado) {
-        empleados.put(empleado.getDni(), empleado);
-    }
-
-    public static Empleado buscarEmpleado(int dni) {
-        return empleados.get(dni);
+        empleados.put(empleado.getIdEmpleado(), empleado);
     }
 
     public static void precargarEmpleado() {
-        if (empleados.isEmpty()) {
-            empleados.put(20111222, new AgenteAdministrativo("Ana", "Gomez", "Rivadavia 10", 20111222, 101));
-            empleados.put(35333444, new EncargadoDeVentas("Carlos", "Ruiz", "Belgrano 20", 35333444, 201));
-        }
+        empleados.put(1, new EncargadoDeVentas(1, "Luisana", "Pereira", 12345678, "Jujuy"));
+        empleados.put(2, new AgenteAdministrativo(2, "Nacho", "Abud", 87654321, "Salta"));
     }
 }
