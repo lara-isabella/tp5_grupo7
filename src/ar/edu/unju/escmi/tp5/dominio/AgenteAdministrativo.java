@@ -1,22 +1,45 @@
 package ar.edu.unju.escmi.tp5.dominio;
 
-public class AgenteAdministrativo extends Empleado {
+import java.util.Scanner;
+import ar.edu.unju.escmi.tp5.collections.CollectionCliente;
+import ar.edu.unju.escmi.tp5.collections.CollectionProducto;
+import ar.edu.unju.escmi.tp5.collections.CollectionFactura;
 
-    private int idEmpleado;
+public class AgenteAdministrativo extends Empleado {
+    private static Scanner scanner = new Scanner(System.in);
 
     public AgenteAdministrativo() {
-        super();
     }
 
-    public AgenteAdministrativo(String nombre, String apellido, String direccion, int dni, int idEmpleado) {
-        super(nombre, apellido, direccion, dni);
-        this.idEmpleado = idEmpleado;
+    public AgenteAdministrativo(int idEmpleado, String nombre, String apellido, int dni, String domicilio) {
+        super(idEmpleado, nombre, apellido, dni, domicilio);
+    }
+
+    public static void altaProducto(Producto producto) {
+    CollectionProducto.guardarProducto(producto);
+    }
+
+    public static Cliente identificarCliente() {
+        System.out.print("Ingrese DNI del cliente: ");
+        int dni = scanner.nextInt();
+        return CollectionCliente.buscarCliente(dni);
+    }
+
+    public static void realizarVenta( Factura factura ) {
+        factura.calcularTotal();
+        CollectionFactura.guardarFactura(factura);
+        System.out.println("Factura generada exitosamente:\n");
+        factura.mostrarFactura();
     }
 
     @Override
-    public void realizarVenta() {
+    public String toString() {
+        return "AgenteAdministrativo{" +
+                "idEmpleado=" + idEmpleado +
+                ", nombre='" + nombre + '\'' +
+                ", apellido='" + apellido + '\'' +
+                ", dni=" + dni +
+                ", domicilio='" + domicilio + '\'' +
+                '}';
     }
-
-    public int getIdEmpleado() { return idEmpleado; }
-    public void setIdEmpleado(int idEmpleado) { this.idEmpleado = idEmpleado; }
 }
